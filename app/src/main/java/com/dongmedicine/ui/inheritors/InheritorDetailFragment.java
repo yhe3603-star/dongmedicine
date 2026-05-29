@@ -80,7 +80,7 @@ public class InheritorDetailFragment extends Fragment {
         if (inheritor.getIntroduction() != null) {
             binding.inheritorDetailIntroduction.setText(inheritor.getIntroduction());
         } else {
-            binding.inheritorDetailIntroduction.setText("暂无简介");
+            binding.inheritorDetailIntroduction.setText(getString(R.string.no_introduction));
         }
 
         Glide.with(this)

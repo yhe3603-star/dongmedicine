@@ -79,7 +79,7 @@ public class KnowledgeDetailFragment extends Fragment {
         if (item.getContent() != null) {
             binding.knowledgeDetailContent.setText(item.getContent());
         } else {
-            binding.knowledgeDetailContent.setText("暂无内容");
+            binding.knowledgeDetailContent.setText(getString(R.string.no_content));
         }
     }
 

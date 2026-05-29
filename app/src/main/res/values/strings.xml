@@ -33,6 +33,8 @@
     <string name="no_description">暂无详细描述</string>
     <string name="no_effects">暂无功效信息</string>
     <string name="no_distribution">暂无分布信息</string>
+    <string name="no_introduction">暂无简介</string>
+    <string name="no_content">暂无内容</string>
 
     <!-- Section headers -->
     <string name="label_effects">功效作用</string>

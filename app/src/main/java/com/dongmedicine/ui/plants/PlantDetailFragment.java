@@ -79,7 +79,7 @@ public class PlantDetailFragment extends Fragment {
 
         if (plant.getNameDong() != null && !plant.getNameDong().isEmpty()) {
             binding.plantDetailNameDong.setVisibility(View.VISIBLE);
-            binding.plantDetailNameDong.setText("侗语名称: " + plant.getNameDong());
+            binding.plantDetailNameDong.setText(getString(R.string.dong_name_prefix, plant.getNameDong()));
         } else {
             binding.plantDetailNameDong.setVisibility(View.GONE);
         }
@@ -87,19 +87,19 @@ public class PlantDetailFragment extends Fragment {
         if (plant.getDescription() != null) {
             binding.plantDetailDescription.setText(plant.getDescription());
         } else {
-            binding.plantDetailDescription.setText("暂无详细描述");
+            binding.plantDetailDescription.setText(getString(R.string.no_description));
         }
 
         if (plant.getEffects() != null) {
             binding.plantDetailEffects.setText(plant.getEffects());
         } else {
-            binding.plantDetailEffects.setText("暂无功效信息");
+            binding.plantDetailEffects.setText(getString(R.string.no_effects));
         }
 
         if (plant.getDistribution() != null) {
             binding.plantDetailDistribution.setText(plant.getDistribution());
         } else {
-            binding.plantDetailDistribution.setText("暂无分布信息");
+            binding.plantDetailDistribution.setText(getString(R.string.no_distribution));
         }
 
         Glide.with(this)

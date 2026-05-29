@@ -81,7 +81,7 @@ public class PlantAdapter extends ListAdapter<Plant, PlantAdapter.PlantViewHolde
             } else if (plant.getEffects() != null && !plant.getEffects().isEmpty()) {
                 descriptionText.setText(plant.getEffects());
             } else {
-                descriptionText.setText("暂无描述信息");
+                descriptionText.setText(itemView.getContext().getString(R.string.no_description));
             }
 
             if (plant.getImageUrl() != null && !plant.getImageUrl().isEmpty()) {
