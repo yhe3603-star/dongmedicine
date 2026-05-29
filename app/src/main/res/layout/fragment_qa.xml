@@ -55,6 +55,7 @@
                     android:background="@drawable/search_bg"
                     android:hint="@string/input_question_hint"
                     android:minHeight="100dp"
+                    android:inputType="textMultiLine"
                     android:padding="12dp"
                     android:textColor="@color/text_primary"
                     android:textColorHint="@color/text_secondary"
@@ -113,7 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="常见问题"
+            android:text="@string/label_faq"
             android:textColor="@color/text_primary"
             android:textSize="16sp"
             android:textStyle="bold" />

@@ -50,4 +50,5 @@
     <string name="desc_home_inheritors">查看传承人</string>
     <string name="desc_home_knowledge">查看知识库</string>
     <string name="desc_home_qa">进入问答</string>
+    <string name="label_faq">常见问题</string>
 </resources>
