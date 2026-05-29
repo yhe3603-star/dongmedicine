@@ -1,17 +1,15 @@
 package com.dongmedicine.adapters;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dongmedicine.R;
 import com.dongmedicine.data.model.KnowledgeItem;
+import com.dongmedicine.databinding.ItemKnowledgeBinding;
 
 import java.util.Objects;
 
@@ -44,9 +42,9 @@ public class KnowledgeAdapter extends ListAdapter<KnowledgeItem, KnowledgeAdapte
     @NonNull
     @Override
     public KnowledgeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_knowledge, parent, false);
-        return new KnowledgeViewHolder(view);
+        ItemKnowledgeBinding binding = ItemKnowledgeBinding.inflate(
+                LayoutInflater.from(parent.getContext()), parent, false);
+        return new KnowledgeViewHolder(binding);
     }
 
     @Override
@@ -56,24 +54,18 @@ public class KnowledgeAdapter extends ListAdapter<KnowledgeItem, KnowledgeAdapte
     }
 
     class KnowledgeViewHolder extends RecyclerView.ViewHolder {
-        private TextView titleText;
-        private TextView categoryText;
-        private TextView authorText;
-        private TextView dateText;
+        private final ItemKnowledgeBinding binding;
 
-        KnowledgeViewHolder(@NonNull View itemView) {
-            super(itemView);
-            titleText = itemView.findViewById(R.id.knowledge_title);
-            categoryText = itemView.findViewById(R.id.knowledge_category);
-            authorText = itemView.findViewById(R.id.knowledge_author);
-            dateText = itemView.findViewById(R.id.knowledge_date);
+        KnowledgeViewHolder(@NonNull ItemKnowledgeBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
 
         void bind(KnowledgeItem item) {
-            titleText.setText(item.getTitle());
-            categoryText.setText(item.getCategory());
-            authorText.setText(item.getAuthor());
-            dateText.setText(item.getPublishDate());
+            binding.knowledgeTitle.setText(item.getTitle());
+            binding.knowledgeCategory.setText(item.getCategory());
+            binding.knowledgeAuthor.setText(item.getAuthor());
+            binding.knowledgeDate.setText(item.getPublishDate());
 
             itemView.setOnClickListener(v -> {
                 if (listener != null) {

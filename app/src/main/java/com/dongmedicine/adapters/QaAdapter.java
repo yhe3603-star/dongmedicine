@@ -1,17 +1,15 @@
 package com.dongmedicine.adapters;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dongmedicine.R;
 import com.dongmedicine.data.model.QaItem;
+import com.dongmedicine.databinding.ItemQaBinding;
 
 import java.util.Objects;
 
@@ -43,9 +41,9 @@ public class QaAdapter extends ListAdapter<QaItem, QaAdapter.QaViewHolder> {
     @NonNull
     @Override
     public QaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_qa, parent, false);
-        return new QaViewHolder(view);
+        ItemQaBinding binding = ItemQaBinding.inflate(
+                LayoutInflater.from(parent.getContext()), parent, false);
+        return new QaViewHolder(binding);
     }
 
     @Override
@@ -55,21 +53,17 @@ public class QaAdapter extends ListAdapter<QaItem, QaAdapter.QaViewHolder> {
     }
 
     class QaViewHolder extends RecyclerView.ViewHolder {
-        private TextView questionText;
-        private TextView answerText;
-        private TextView categoryText;
+        private final ItemQaBinding binding;
 
-        QaViewHolder(@NonNull View itemView) {
-            super(itemView);
-            questionText = itemView.findViewById(R.id.qa_question);
-            answerText = itemView.findViewById(R.id.qa_answer);
-            categoryText = itemView.findViewById(R.id.qa_category);
+        QaViewHolder(@NonNull ItemQaBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
 
         void bind(QaItem item) {
-            questionText.setText(item.getQuestion());
-            answerText.setText(item.getAnswer());
-            categoryText.setText(item.getCategory());
+            binding.qaQuestion.setText(item.getQuestion());
+            binding.qaAnswer.setText(item.getAnswer());
+            binding.qaCategory.setText(item.getCategory());
 
             itemView.setOnClickListener(v -> {
                 if (listener != null) {
