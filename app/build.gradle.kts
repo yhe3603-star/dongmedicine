@@ -65,6 +65,10 @@ dependencies {
     annotationProcessor(libs.hilt.compiler)
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
     testImplementation(libs.junit)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.core.testing)
+    testImplementation(libs.hilt.testing)
+    testAnnotationProcessor(libs.hilt.compiler)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 }
