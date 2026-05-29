@@ -8,13 +8,15 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primary">
+        android:background="@drawable/bg_gradient_primary"
+        app:elevation="0dp">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_back"
+            app:navigationIconTint="@color/white"
             app:title="@string/title_knowledge_detail"
             app:titleTextColor="@color/white" />
 
@@ -25,24 +27,26 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
+            app:cardCornerRadius="@dimen/corner_radius_lg"
+            app:cardElevation="2dp"
+            app:strokeColor="@color/outline_variant"
+            app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="20dp">
 
                 <TextView
                     android:id="@+id/knowledge_detail_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/text_primary"
+                    android:textColor="@color/on_surface"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -50,6 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <TextView
@@ -57,24 +62,41 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/category_tag_bg"
-                        android:padding="4dp"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="4dp"
                         android:textColor="@color/primary"
                         android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="·"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/knowledge_detail_author"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:textColor="@color/text_secondary"
+                        android:layout_marginStart="6dp"
+                        android:textColor="@color/on_surface_variant"
                         android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="·"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/knowledge_detail_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:textColor="@color/text_secondary"
+                        android:layout_marginStart="6dp"
+                        android:textColor="@color/on_surface_variant"
                         android:textSize="12sp" />
 
                 </LinearLayout>
@@ -83,7 +105,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="16dp"
-                    android:background="@color/divider" />
+                    android:background="@color/outline_variant" />
 
                 <TextView
                     android:id="@+id/knowledge_detail_content"
@@ -91,12 +113,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:lineSpacingExtra="6dp"
-                    android:textColor="@color/text_primary"
+                    android:textColor="@color/on_surface"
                     android:textSize="15sp" />
 
             </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.core.widget.NestedScrollView>
 
@@ -113,8 +135,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/error_network"
-        android:textColor="@color/text_secondary"
-        android:textSize="16sp"
+        android:textColor="@color/on_surface_variant"
+        android:textSize="14sp"
         android:visibility="gone" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -12,9 +12,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.dongmedicine.R;
 import com.dongmedicine.adapters.QaAdapter;
 import com.dongmedicine.adapters.SpaceItemDecoration;
 import com.dongmedicine.databinding.FragmentQaBinding;
+import com.dongmedicine.utils.AnimationUtils;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -54,6 +56,7 @@ public class QaFragment extends Fragment {
         binding.recyclerView.setAdapter(adapter);
         int spacing = (int) (8 * getResources().getDisplayMetrics().density);
         binding.recyclerView.addItemDecoration(new SpaceItemDecoration(spacing));
+        AnimationUtils.runLayoutAnimation(binding.recyclerView, R.anim.item_fall_down);
     }
 
     private void setupListeners() {
@@ -72,6 +75,14 @@ public class QaFragment extends Fragment {
             if (answer != null && !answer.isEmpty()) {
                 binding.tvAnswer.setText(answer);
                 binding.cardAnswer.setVisibility(View.VISIBLE);
+                binding.cardAnswer.setAlpha(0f);
+                binding.cardAnswer.setTranslationY(20f);
+                binding.cardAnswer.animate()
+                        .alpha(1f)
+                        .translationY(0f)
+                        .setDuration(400)
+                        .setInterpolator(new android.view.animation.DecelerateInterpolator())
+                        .start();
             }
         });
 

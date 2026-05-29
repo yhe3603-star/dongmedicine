@@ -16,7 +16,9 @@
     <string name="knowledge_count">知识条目</string>
     <string name="user_count">注册用户</string>
     <string name="welcome_message">欢迎来到侗乡医药数字平台</string>
-    <string name="quick_entry">快捷入口</string>
+    <string name="subtitle_platform">侗族传统医药数字平台</string>
+    <string name="section_data_overview">数据概览</string>
+    <string name="quick_entry">快速入口</string>
     <string name="statistics">数据统计</string>
     <string name="ask_question">提问</string>
     <string name="input_question_hint">请输入您的问题...</string>

@@ -1,9 +1,13 @@
 package com.dongmedicine.ui.home;
 
+import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +26,7 @@ public class HomeFragment extends Fragment {
 
     private HomeViewModel viewModel;
     private FragmentHomeBinding binding;
+    private boolean statsAnimated = false;
 
     @Nullable
     @Override
@@ -38,6 +43,7 @@ public class HomeFragment extends Fragment {
 
         setupStatistics();
         setupNavigation();
+        animateNavCardsEntrance();
     }
 
     private void setupStatistics() {
@@ -47,8 +53,58 @@ public class HomeFragment extends Fragment {
                 binding.tvInheritorCount.setText(String.valueOf(statistics.getInheritorCount()));
                 binding.tvKnowledgeCount.setText(String.valueOf(statistics.getKnowledgeCount()));
                 binding.tvUserCount.setText(String.valueOf(statistics.getUserCount()));
+
+                if (!statsAnimated) {
+                    statsAnimated = true;
+                    animateStatsOnLoad(statistics);
+                }
             }
         });
+    }
+
+    private void animateStatsOnLoad(HomeViewModel.HomeStatistics statistics) {
+        animateCounter(binding.tvPlantCount, statistics.getPlantCount(), 0);
+        animateCounter(binding.tvInheritorCount, statistics.getInheritorCount(), 150);
+        animateCounter(binding.tvKnowledgeCount, statistics.getKnowledgeCount(), 300);
+        animateCounter(binding.tvUserCount, statistics.getUserCount(), 450);
+    }
+
+    private void animateCounter(TextView textView, int targetValue, long delay) {
+        textView.postDelayed(() -> {
+            ValueAnimator animator = ValueAnimator.ofInt(0, targetValue);
+            animator.setDuration(1000);
+            animator.setInterpolator(new AccelerateDecelerateInterpolator());
+            animator.addUpdateListener(animation -> {
+                int value = (int) animation.getAnimatedValue();
+                textView.setText(String.valueOf(value));
+            });
+            animator.start();
+        }, delay);
+    }
+
+    private void animateNavCardsEntrance() {
+        View[] cards = {
+                binding.cardPlants,
+                binding.cardInheritors,
+                binding.cardKnowledge,
+                binding.cardQa
+        };
+
+        for (int i = 0; i < cards.length; i++) {
+            final View card = cards[i];
+            final long delay = i * 100L;
+
+            card.setAlpha(0f);
+            card.setTranslationY(50f);
+            card.postDelayed(() -> {
+                card.animate()
+                        .alpha(1f)
+                        .translationY(0f)
+                        .setDuration(400)
+                        .setInterpolator(new OvershootInterpolator(1.0f))
+                        .start();
+            }, delay);
+        }
     }
 
     private void setupNavigation() {

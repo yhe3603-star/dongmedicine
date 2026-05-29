@@ -1,5 +1,6 @@
 package com.dongmedicine.ui.plants;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +47,8 @@ public class PlantDetailFragment extends Fragment {
     private void setupToolbar() {
         binding.toolbar.setNavigationOnClickListener(v ->
                 Navigation.findNavController(requireView()).navigateUp());
+        binding.collapsingToolbar.setExpandedTitleColor(Color.WHITE);
+        binding.collapsingToolbar.setCollapsedTitleTextColor(Color.WHITE);
     }
 
     private void loadPlantData() {
@@ -82,6 +85,7 @@ public class PlantDetailFragment extends Fragment {
     }
 
     private void displayPlant(Plant plant) {
+        binding.collapsingToolbar.setTitle(plant.getName());
         binding.plantDetailName.setText(plant.getName());
         binding.plantDetailScientificName.setText(plant.getScientificName());
 

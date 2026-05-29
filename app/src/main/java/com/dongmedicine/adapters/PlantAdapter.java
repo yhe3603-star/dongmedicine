@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.dongmedicine.R;
 import com.dongmedicine.data.model.Plant;
 import com.dongmedicine.databinding.ItemPlantBinding;
@@ -76,11 +77,14 @@ public class PlantAdapter extends ListAdapter<Plant, PlantAdapter.PlantViewHolde
                 binding.plantDescription.setText(itemView.getContext().getString(R.string.no_description));
             }
 
+            binding.plantImage.setTransitionName("plant_image_" + plant.getId());
+
             if (plant.getImageUrl() != null && !plant.getImageUrl().isEmpty()) {
                 Glide.with(itemView.getContext())
                         .load(plant.getImageUrl())
                         .placeholder(R.drawable.ic_placeholder)
                         .error(R.drawable.ic_placeholder)
+                        .transform(new RoundedCorners(24))
                         .into(binding.plantImage);
             } else {
                 binding.plantImage.setImageResource(R.drawable.ic_placeholder);

@@ -1,5 +1,6 @@
 package com.dongmedicine.ui.inheritors;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +47,8 @@ public class InheritorDetailFragment extends Fragment {
     private void setupToolbar() {
         binding.toolbar.setNavigationOnClickListener(v ->
                 Navigation.findNavController(requireView()).navigateUp());
+        binding.collapsingToolbar.setExpandedTitleColor(Color.WHITE);
+        binding.collapsingToolbar.setCollapsedTitleTextColor(Color.WHITE);
     }
 
     private void loadInheritorData() {
@@ -82,6 +85,7 @@ public class InheritorDetailFragment extends Fragment {
     }
 
     private void displayInheritor(Inheritor inheritor) {
+        binding.collapsingToolbar.setTitle(inheritor.getName());
         binding.inheritorDetailName.setText(inheritor.getName());
         binding.inheritorDetailTitle.setText(inheritor.getTitle());
         binding.inheritorDetailSpecialization.setText(inheritor.getSpecialization());

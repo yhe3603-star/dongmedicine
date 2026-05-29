@@ -1,34 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Base -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="primary">#2E7D32</color>
-    <color name="primary_dark">#1B5E20</color>
-    <color name="primary_light">#81C784</color>
-    <color name="accent">#FF6F00</color>
-    <color name="text_primary">#212121</color>
-    <color name="text_secondary">#757575</color>
-    <color name="divider">#BDBDBD</color>
-    <color name="background">#FAFAFA</color>
-    <color name="card_background">#FFFFFF</color>
+
+    <!-- Primary palette — warmer forest green -->
+    <color name="primary">#3A7D44</color>
+    <color name="primary_dark">#2C5F2D</color>
+    <color name="primary_light">#A8D5BA</color>
+    <color name="on_primary">#FFFFFFFF</color>
+
+    <!-- Accent — warm terracotta heritage tone -->
+    <color name="accent">#D4A574</color>
+
+    <!-- Surface and background — warm off-white -->
+    <color name="background">#F7F4EF</color>
+    <color name="background_primary">#FFFFFF</color>
+    <color name="background_secondary">#F0EDE8</color>
+    <color name="card_background">#FFFFFFFF</color>
+    <color name="surface_elevated">#FFFFFFFF</color>
+
+    <!-- Text — semantic tokens -->
+    <color name="text_primary">#1C1B1F</color>
+    <color name="text_secondary">#49454F</color>
+    <color name="on_surface">#1C1B1F</color>
+    <color name="on_surface_variant">#49454F</color>
+
+    <!-- Dividers and outlines -->
+    <color name="divider">#CAC4D0</color>
+    <color name="outline">#CAC4D0</color>
+    <color name="outline_variant">#E8E0D8</color>
+
+    <!-- Gradient tokens -->
+    <color name="gradient_start">#3A7D44</color>
+    <color name="gradient_end">#2C5F2D</color>
+
+    <!-- Chip backgrounds -->
+    <color name="chip_unselected_bg">#F0EDE8</color>
 
     <!-- Stats card backgrounds -->
+    <color name="stats_green_bg">#E8F5E9</color>
+    <color name="stats_green_text">#2E7D32</color>
     <color name="stats_blue_bg">#E3F2FD</color>
     <color name="stats_blue_text">#1565C0</color>
-    <color name="stats_orange_bg">#FFF3E0</color>
+    <color name="stats_orange_bg">#FFF8E1</color>
     <color name="stats_orange_text">#E65100</color>
     <color name="stats_purple_bg">#F3E5F5</color>
     <color name="stats_purple_text">#7B1FA2</color>
 
-    <!-- Quick entry buttons -->
-    <color name="button_blue">#1976D2</color>
-    <color name="button_orange">#F57C00</color>
-    <color name="button_purple">#7B1FA2</color>
+    <!-- Nav card backgrounds -->
+    <color name="nav_plant_bg">#3A7D44</color>
+    <color name="nav_inheritor_bg">#5C6BC0</color>
+    <color name="nav_knowledge_bg">#D4A574</color>
+    <color name="nav_qa_bg">#AB47BC</color>
+
+    <!-- Quick entry buttons (legacy compat) -->
+    <color name="button_blue">#5C6BC0</color>
+    <color name="button_orange">#D4A574</color>
+    <color name="button_purple">#AB47BC</color>
 
     <!-- Category tag -->
     <color name="category_tag_bg">#E8F5E9</color>
 
-    <!-- Surface and background -->
-    <color name="background_primary">#FFFFFF</color>
-    <color name="background_secondary">#F5F5F5</color>
+    <!-- Category chip colors -->
+    <color name="category_plant">#4CAF50</color>
+    <color name="category_inheritor">#5C6BC0</color>
+    <color name="category_knowledge">#FF8F00</color>
+    <color name="category_qa">#AB47BC</color>
 </resources>

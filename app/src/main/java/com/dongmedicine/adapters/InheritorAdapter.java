@@ -68,6 +68,8 @@ public class InheritorAdapter extends ListAdapter<Inheritor, InheritorAdapter.In
             binding.inheritorTitle.setText(inheritor.getTitle());
             binding.inheritorSpecialization.setText(inheritor.getSpecialization());
 
+            binding.inheritorImage.setTransitionName("inheritor_image_" + inheritor.getId());
+
             if (inheritor.getImageUrl() != null && !inheritor.getImageUrl().isEmpty()) {
                 Glide.with(itemView.getContext())
                         .load(inheritor.getImageUrl())

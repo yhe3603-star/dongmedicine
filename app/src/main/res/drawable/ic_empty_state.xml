@@ -1,0 +1,28 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+    <!-- Pot/vase -->
+    <path
+        android:fillColor="@color/outline_variant"
+        android:pathData="M45,85 L50,55 L70,55 L75,85 Q75,95 60,95 Q45,95 45,85Z" />
+    <!-- Soil -->
+    <path
+        android:fillColor="@color/outline"
+        android:pathData="M50,55 Q60,50 70,55 L70,60 Q60,56 50,60Z" />
+    <!-- Stem -->
+    <path
+        android:strokeColor="@color/primary_light"
+        android:strokeWidth="3"
+        android:fillColor="#00000000"
+        android:pathData="M60,55 Q58,40 60,25" />
+    <!-- Leaf 1 -->
+    <path
+        android:fillColor="@color/primary_light"
+        android:pathData="M60,35 Q50,25 45,30 Q50,38 60,35Z" />
+    <!-- Leaf 2 -->
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M60,30 Q70,20 75,25 Q70,33 60,30Z" />
+</vector>

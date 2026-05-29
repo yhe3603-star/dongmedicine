@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.dongmedicine.R;
 import com.dongmedicine.adapters.KnowledgeAdapter;
 import com.dongmedicine.adapters.SpaceItemDecoration;
+import com.dongmedicine.utils.AnimationUtils;
 import com.dongmedicine.data.model.KnowledgeItem;
 import com.dongmedicine.databinding.FragmentKnowledgeBinding;
 import com.google.android.material.chip.Chip;
@@ -60,6 +61,7 @@ public class KnowledgeFragment extends Fragment implements KnowledgeAdapter.OnIt
         binding.recyclerView.setAdapter(adapter);
         int spacing = (int) (8 * getResources().getDisplayMetrics().density);
         binding.recyclerView.addItemDecoration(new SpaceItemDecoration(spacing));
+        AnimationUtils.runLayoutAnimation(binding.recyclerView, R.anim.item_fall_down);
     }
 
     private void setupCategoryChips() {
@@ -113,13 +115,15 @@ public class KnowledgeFragment extends Fragment implements KnowledgeAdapter.OnIt
             if (items != null) {
                 adapter.submitList(items);
                 updateEmptyState(items);
+                binding.recyclerView.scheduleLayoutAnimation();
             }
         });
     }
 
     private void showLoading() {
         binding.progressBar.setVisibility(View.VISIBLE);
-        binding.tvEmpty.setVisibility(View.GONE);
+        binding.layoutEmpty.setVisibility(View.GONE);
+        binding.tvError.setVisibility(View.GONE);
     }
 
     private void hideLoading() {
@@ -128,17 +132,20 @@ public class KnowledgeFragment extends Fragment implements KnowledgeAdapter.OnIt
 
     private void showData() {
         binding.recyclerView.setVisibility(View.VISIBLE);
-        binding.tvEmpty.setVisibility(View.GONE);
+        binding.layoutEmpty.setVisibility(View.GONE);
+        binding.tvError.setVisibility(View.GONE);
     }
 
     private void showEmpty() {
         binding.recyclerView.setVisibility(View.GONE);
-        binding.tvEmpty.setVisibility(View.VISIBLE);
+        binding.layoutEmpty.setVisibility(View.VISIBLE);
+        binding.tvError.setVisibility(View.GONE);
     }
 
     private void showError(String message) {
-        binding.tvEmpty.setText(message != null ? message : getString(R.string.error_network));
-        binding.tvEmpty.setVisibility(View.VISIBLE);
+        binding.tvError.setText(message != null ? message : getString(R.string.error_network));
+        binding.tvError.setVisibility(View.VISIBLE);
+        binding.layoutEmpty.setVisibility(View.GONE);
         binding.recyclerView.setVisibility(View.GONE);
     }
 
