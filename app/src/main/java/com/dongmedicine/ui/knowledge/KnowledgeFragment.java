@@ -20,6 +20,9 @@ import com.google.android.material.chip.Chip;
 
 import java.util.List;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class KnowledgeFragment extends Fragment implements KnowledgeAdapter.OnItemClickListener {
 
     private KnowledgeViewModel viewModel;

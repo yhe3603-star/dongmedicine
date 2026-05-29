@@ -17,6 +17,9 @@ import com.dongmedicine.data.model.Inheritor;
 import com.dongmedicine.data.repository.Resource;
 import com.dongmedicine.databinding.FragmentInheritorDetailBinding;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class InheritorDetailFragment extends Fragment {
 
     private InheritorDetailViewModel viewModel;

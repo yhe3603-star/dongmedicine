@@ -15,6 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.dongmedicine.adapters.QaAdapter;
 import com.dongmedicine.databinding.FragmentQaBinding;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class QaFragment extends Fragment {
 
     private QaViewModel viewModel;

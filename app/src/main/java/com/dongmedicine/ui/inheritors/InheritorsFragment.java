@@ -20,6 +20,9 @@ import com.google.android.material.chip.Chip;
 
 import java.util.List;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class InheritorsFragment extends Fragment implements InheritorAdapter.OnItemClickListener {
 
     private InheritorsViewModel viewModel;

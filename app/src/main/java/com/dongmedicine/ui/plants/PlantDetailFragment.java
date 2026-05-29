@@ -17,6 +17,9 @@ import com.dongmedicine.data.model.Plant;
 import com.dongmedicine.data.repository.Resource;
 import com.dongmedicine.databinding.FragmentPlantDetailBinding;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class PlantDetailFragment extends Fragment {
 
     private PlantDetailViewModel viewModel;

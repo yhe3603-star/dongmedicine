@@ -15,6 +15,9 @@ import com.dongmedicine.data.model.KnowledgeItem;
 import com.dongmedicine.data.repository.Resource;
 import com.dongmedicine.databinding.FragmentKnowledgeDetailBinding;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class KnowledgeDetailFragment extends Fragment {
 
     private KnowledgeDetailViewModel viewModel;

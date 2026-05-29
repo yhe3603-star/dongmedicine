@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.safeargs)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -56,9 +57,12 @@ dependencies {
     implementation(libs.recyclerview)
     implementation(libs.viewpager2)
     implementation(libs.gson)
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.navigation.fragment)
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     annotationProcessor(libs.room.compiler)
+    annotationProcessor(libs.hilt.compiler)
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

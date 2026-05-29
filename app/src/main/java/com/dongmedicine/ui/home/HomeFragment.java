@@ -15,6 +15,9 @@ import androidx.navigation.Navigation;
 import com.dongmedicine.R;
 import com.dongmedicine.databinding.FragmentHomeBinding;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class HomeFragment extends Fragment {
 
     private HomeViewModel viewModel;
