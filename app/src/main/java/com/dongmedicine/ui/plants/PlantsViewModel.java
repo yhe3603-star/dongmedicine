@@ -11,16 +11,22 @@ import com.dongmedicine.data.repository.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+@HiltViewModel
 public class PlantsViewModel extends ViewModel {
 
     private final DongMedicineRepository repository;
-    private final MutableLiveData<Resource<List<Plant>>> plants = new MutableLiveData<>();
+    private LiveData<Resource<List<Plant>>> plants;
     private final MutableLiveData<List<Plant>> filteredPlants = new MutableLiveData<>();
     private String searchQuery = "";
     private String selectedCategory;
 
-    public PlantsViewModel() {
-        repository = DongMedicineRepository.getInstance();
+    @Inject
+    public PlantsViewModel(DongMedicineRepository repository) {
+        this.repository = repository;
         selectedCategory = "全部";
         loadPlants();
     }
@@ -29,7 +35,7 @@ public class PlantsViewModel extends ViewModel {
     public LiveData<List<Plant>> getFilteredPlants() { return filteredPlants; }
 
     public void loadPlants() {
-        repository.getPlants(plants);
+        plants = repository.getPlants();
     }
 
     public void setSearchQuery(String query) {
@@ -43,7 +49,7 @@ public class PlantsViewModel extends ViewModel {
     }
 
     public void applyFilters() {
-        Resource<List<Plant>> resource = plants.getValue();
+        Resource<List<Plant>> resource = plants != null ? plants.getValue() : null;
         if (resource == null || resource.getData() == null) return;
 
         List<Plant> sourceList = resource.getData();

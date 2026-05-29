@@ -11,15 +11,21 @@ import com.dongmedicine.data.repository.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+@HiltViewModel
 public class InheritorsViewModel extends ViewModel {
 
     private final DongMedicineRepository repository;
-    private final MutableLiveData<Resource<List<Inheritor>>> inheritors = new MutableLiveData<>();
+    private LiveData<Resource<List<Inheritor>>> inheritors;
     private final MutableLiveData<List<Inheritor>> filteredInheritors = new MutableLiveData<>();
     private String selectedLevel;
 
-    public InheritorsViewModel() {
-        repository = DongMedicineRepository.getInstance();
+    @Inject
+    public InheritorsViewModel(DongMedicineRepository repository) {
+        this.repository = repository;
         selectedLevel = "全部";
         loadInheritors();
     }
@@ -28,7 +34,7 @@ public class InheritorsViewModel extends ViewModel {
     public LiveData<List<Inheritor>> getFilteredInheritors() { return filteredInheritors; }
 
     public void loadInheritors() {
-        repository.getInheritors(inheritors);
+        inheritors = repository.getInheritors();
     }
 
     public void setSelectedLevel(String level) {
@@ -37,7 +43,7 @@ public class InheritorsViewModel extends ViewModel {
     }
 
     public void applyFilters() {
-        Resource<List<Inheritor>> resource = inheritors.getValue();
+        Resource<List<Inheritor>> resource = inheritors != null ? inheritors.getValue() : null;
         if (resource == null || resource.getData() == null) return;
 
         List<Inheritor> sourceList = resource.getData();

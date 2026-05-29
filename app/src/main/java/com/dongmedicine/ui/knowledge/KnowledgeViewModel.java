@@ -11,15 +11,21 @@ import com.dongmedicine.data.repository.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+@HiltViewModel
 public class KnowledgeViewModel extends ViewModel {
 
     private final DongMedicineRepository repository;
-    private final MutableLiveData<Resource<List<KnowledgeItem>>> knowledgeList = new MutableLiveData<>();
+    private LiveData<Resource<List<KnowledgeItem>>> knowledgeList;
     private final MutableLiveData<List<KnowledgeItem>> filteredKnowledge = new MutableLiveData<>();
     private String selectedCategory;
 
-    public KnowledgeViewModel() {
-        repository = DongMedicineRepository.getInstance();
+    @Inject
+    public KnowledgeViewModel(DongMedicineRepository repository) {
+        this.repository = repository;
         selectedCategory = "全部";
         loadKnowledge();
     }
@@ -28,7 +34,7 @@ public class KnowledgeViewModel extends ViewModel {
     public LiveData<List<KnowledgeItem>> getFilteredKnowledge() { return filteredKnowledge; }
 
     public void loadKnowledge() {
-        repository.getKnowledgeList(knowledgeList);
+        knowledgeList = repository.getKnowledgeList();
     }
 
     public void setSelectedCategory(String category) {
@@ -37,7 +43,7 @@ public class KnowledgeViewModel extends ViewModel {
     }
 
     public void applyFilters() {
-        Resource<List<KnowledgeItem>> resource = knowledgeList.getValue();
+        Resource<List<KnowledgeItem>> resource = knowledgeList != null ? knowledgeList.getValue() : null;
         if (resource == null || resource.getData() == null) return;
 
         List<KnowledgeItem> sourceList = resource.getData();

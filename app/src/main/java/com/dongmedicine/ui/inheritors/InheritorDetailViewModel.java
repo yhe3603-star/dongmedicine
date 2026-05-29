@@ -1,25 +1,30 @@
 package com.dongmedicine.ui.inheritors;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.dongmedicine.data.model.Inheritor;
 import com.dongmedicine.data.repository.DongMedicineRepository;
 import com.dongmedicine.data.repository.Resource;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+@HiltViewModel
 public class InheritorDetailViewModel extends ViewModel {
 
     private final DongMedicineRepository repository;
-    private final MutableLiveData<Resource<Inheritor>> inheritor = new MutableLiveData<>();
+    private LiveData<Resource<Inheritor>> inheritor;
 
-    public InheritorDetailViewModel() {
-        repository = DongMedicineRepository.getInstance();
+    @Inject
+    public InheritorDetailViewModel(DongMedicineRepository repository) {
+        this.repository = repository;
     }
 
     public LiveData<Resource<Inheritor>> getInheritor() { return inheritor; }
 
     public void loadInheritor(int inheritorId) {
-        repository.getInheritorById(inheritorId, inheritor);
+        inheritor = repository.getInheritorById(inheritorId);
     }
 }

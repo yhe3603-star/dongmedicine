@@ -4,10 +4,16 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+@HiltViewModel
 public class HomeViewModel extends ViewModel {
 
     private final MutableLiveData<HomeStatistics> statistics;
 
+    @Inject
     public HomeViewModel() {
         statistics = new MutableLiveData<>();
         loadStatistics();
@@ -34,13 +40,10 @@ public class HomeViewModel extends ViewModel {
 
         public int getPlantCount() { return plantCount; }
         public void setPlantCount(int plantCount) { this.plantCount = plantCount; }
-
         public int getInheritorCount() { return inheritorCount; }
         public void setInheritorCount(int inheritorCount) { this.inheritorCount = inheritorCount; }
-
         public int getKnowledgeCount() { return knowledgeCount; }
         public void setKnowledgeCount(int knowledgeCount) { this.knowledgeCount = knowledgeCount; }
-
         public int getUserCount() { return userCount; }
         public void setUserCount(int userCount) { this.userCount = userCount; }
     }

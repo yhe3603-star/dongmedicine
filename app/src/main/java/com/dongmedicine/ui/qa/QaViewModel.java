@@ -7,6 +7,11 @@ import androidx.lifecycle.ViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+@HiltViewModel
 public class QaViewModel extends ViewModel {
 
     private final MutableLiveData<List<QaItem>> qaList;
@@ -14,6 +19,7 @@ public class QaViewModel extends ViewModel {
     private final MutableLiveData<String> currentAnswer;
     private final MutableLiveData<Boolean> isAnswerVisible;
 
+    @Inject
     public QaViewModel() {
         qaList = new MutableLiveData<>();
         currentQuestion = new MutableLiveData<>();
