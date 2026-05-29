@@ -22,4 +22,30 @@
     <string name="input_question_hint">请输入您的问题...</string>
     <string name="submit">提交</string>
     <string name="answer">回答</string>
+
+    <!-- Detail page titles -->
+    <string name="title_plant_detail">植物详情</string>
+    <string name="title_inheritor_detail">传承人详情</string>
+    <string name="title_knowledge_detail">知识详情</string>
+
+    <!-- Detail placeholders -->
+    <string name="dong_name_prefix">侗语名称: %s</string>
+    <string name="no_description">暂无详细描述</string>
+    <string name="no_effects">暂无功效信息</string>
+    <string name="no_distribution">暂无分布信息</string>
+
+    <!-- Section headers -->
+    <string name="label_effects">功效作用</string>
+    <string name="label_description">详细描述</string>
+    <string name="label_distribution">分布区域</string>
+    <string name="label_specialization">擅长领域</string>
+    <string name="label_introduction">个人简介</string>
+
+    <!-- Accessibility -->
+    <string name="desc_plant_image">药用植物图片</string>
+    <string name="desc_inheritor_image">传承人头像</string>
+    <string name="desc_home_plants">查看药用植物</string>
+    <string name="desc_home_inheritors">查看传承人</string>
+    <string name="desc_home_knowledge">查看知识库</string>
+    <string name="desc_home_qa">进入问答</string>
 </resources>

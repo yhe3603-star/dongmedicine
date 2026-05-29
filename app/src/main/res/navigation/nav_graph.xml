@@ -37,10 +37,11 @@
     <fragment
         android:id="@+id/plantDetailFragment"
         android:name="com.dongmedicine.ui.plants.PlantDetailFragment"
-        android:label="植物详情"
+        android:label="@string/title_plant_detail"
         tools:layout="@layout/fragment_plant_detail">
         <argument
             android:name="plantId"
+            android:defaultValue="0"
             app:argType="integer" />
     </fragment>
 
@@ -57,10 +58,11 @@
     <fragment
         android:id="@+id/inheritorDetailFragment"
         android:name="com.dongmedicine.ui.inheritors.InheritorDetailFragment"
-        android:label="传承人详情"
+        android:label="@string/title_inheritor_detail"
         tools:layout="@layout/fragment_inheritor_detail">
         <argument
             android:name="inheritorId"
+            android:defaultValue="0"
             app:argType="integer" />
     </fragment>
 
@@ -77,10 +79,11 @@
     <fragment
         android:id="@+id/knowledgeDetailFragment"
         android:name="com.dongmedicine.ui.knowledge.KnowledgeDetailFragment"
-        android:label="知识详情"
+        android:label="@string/title_knowledge_detail"
         tools:layout="@layout/fragment_knowledge_detail">
         <argument
             android:name="knowledgeId"
+            android:defaultValue="0"
             app:argType="integer" />
     </fragment>
 

@@ -11,4 +11,20 @@
     <color name="divider">#BDBDBD</color>
     <color name="background">#FAFAFA</color>
     <color name="card_background">#FFFFFF</color>
+
+    <!-- Stats card backgrounds -->
+    <color name="stats_blue_bg">#E3F2FD</color>
+    <color name="stats_blue_text">#1565C0</color>
+    <color name="stats_orange_bg">#FFF3E0</color>
+    <color name="stats_orange_text">#E65100</color>
+    <color name="stats_purple_bg">#F3E5F5</color>
+    <color name="stats_purple_text">#7B1FA2</color>
+
+    <!-- Quick entry buttons -->
+    <color name="button_blue">#1976D2</color>
+    <color name="button_orange">#F57C00</color>
+    <color name="button_purple">#7B1FA2</color>
+
+    <!-- Category tag -->
+    <color name="category_tag_bg">#E8F5E9</color>
 </resources>
