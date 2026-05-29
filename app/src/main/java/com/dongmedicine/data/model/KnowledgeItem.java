@@ -1,6 +1,11 @@
 package com.dongmedicine.data.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "knowledge_items")
 public class KnowledgeItem {
+    @PrimaryKey
     private int id;
     private String title;
     private String content;

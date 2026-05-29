@@ -1,6 +1,11 @@
 package com.dongmedicine.data.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "plants")
 public class Plant {
+    @PrimaryKey
     private int id;
     private String name;
     private String scientificName;
