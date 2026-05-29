@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.dongmedicine.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_plantsFragment"
+            app:destination="@id/plantsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_inheritorsFragment"
+            app:destination="@id/inheritorsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_knowledgeFragment"
+            app:destination="@id/knowledgeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_qaFragment"
+            app:destination="@id/qaFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/plantsFragment"
+        android:name="com.dongmedicine.ui.plants.PlantsFragment"
+        android:label="@string/title_plants"
+        tools:layout="@layout/fragment_plants">
+        <action
+            android:id="@+id/action_plantsFragment_to_plantDetailFragment"
+            app:destination="@id/plantDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/plantDetailFragment"
+        android:name="com.dongmedicine.ui.plants.PlantDetailFragment"
+        android:label="植物详情"
+        tools:layout="@layout/fragment_plant_detail">
+        <argument
+            android:name="plantId"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/inheritorsFragment"
+        android:name="com.dongmedicine.ui.inheritors.InheritorsFragment"
+        android:label="@string/title_inheritors"
+        tools:layout="@layout/fragment_inheritors">
+        <action
+            android:id="@+id/action_inheritorsFragment_to_inheritorDetailFragment"
+            app:destination="@id/inheritorDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/inheritorDetailFragment"
+        android:name="com.dongmedicine.ui.inheritors.InheritorDetailFragment"
+        android:label="传承人详情"
+        tools:layout="@layout/fragment_inheritor_detail">
+        <argument
+            android:name="inheritorId"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/knowledgeFragment"
+        android:name="com.dongmedicine.ui.knowledge.KnowledgeFragment"
+        android:label="@string/title_knowledge"
+        tools:layout="@layout/fragment_knowledge">
+        <action
+            android:id="@+id/action_knowledgeFragment_to_knowledgeDetailFragment"
+            app:destination="@id/knowledgeDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/knowledgeDetailFragment"
+        android:name="com.dongmedicine.ui.knowledge.KnowledgeDetailFragment"
+        android:label="知识详情"
+        tools:layout="@layout/fragment_knowledge_detail">
+        <argument
+            android:name="knowledgeId"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/qaFragment"
+        android:name="com.dongmedicine.ui.qa.QaFragment"
+        android:label="@string/title_qa"
+        tools:layout="@layout/fragment_qa" />
+
+</navigation>

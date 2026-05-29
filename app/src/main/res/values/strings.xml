@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">侗乡医药</string>
+    <string name="title_home">首页</string>
+    <string name="title_plants">药用植物</string>
+    <string name="title_inheritors">非遗传承人</string>
+    <string name="title_knowledge">知识库</string>
+    <string name="title_qa">互动问答</string>
+    <string name="loading">加载中...</string>
+    <string name="error_network">网络连接失败</string>
+    <string name="retry">重试</string>
+    <string name="search_hint">搜索植物名称...</string>
+    <string name="category_all">全部</string>
+    <string name="no_data">暂无数据</string>
+    <string name="plant_count">药用植物</string>
+    <string name="inheritor_count">传承人</string>
+    <string name="knowledge_count">知识条目</string>
+    <string name="user_count">注册用户</string>
+    <string name="welcome_message">欢迎来到侗乡医药数字平台</string>
+    <string name="quick_entry">快捷入口</string>
+    <string name="statistics">数据统计</string>
+    <string name="ask_question">提问</string>
+    <string name="input_question_hint">请输入您的问题...</string>
+    <string name="submit">提交</string>
+    <string name="answer">回答</string>
+</resources>
