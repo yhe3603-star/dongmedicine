@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background">
@@ -72,7 +73,7 @@
                             android:id="@+id/tv_plant_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="156"
+                            tools:text="156"
                             android:textColor="@color/primary_dark"
                             android:textSize="28sp"
                             android:textStyle="bold" />
@@ -105,7 +106,7 @@
                             android:id="@+id/tv_inheritor_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="23"
+                            tools:text="23"
                             android:textColor="@color/stats_blue_text"
                             android:textSize="28sp"
                             android:textStyle="bold" />
@@ -138,7 +139,7 @@
                             android:id="@+id/tv_knowledge_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="89"
+                            tools:text="89"
                             android:textColor="@color/stats_orange_text"
                             android:textSize="28sp"
                             android:textStyle="bold" />
@@ -171,7 +172,7 @@
                             android:id="@+id/tv_user_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1024"
+                            tools:text="1024"
                             android:textColor="@color/stats_purple_text"
                             android:textSize="28sp"
                             android:textStyle="bold" />
