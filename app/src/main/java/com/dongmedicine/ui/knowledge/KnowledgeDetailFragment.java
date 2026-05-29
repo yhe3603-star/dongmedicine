@@ -58,15 +58,21 @@ public class KnowledgeDetailFragment extends Fragment {
             if (resource != null) {
                 switch (resource.getStatus()) {
                     case LOADING:
-                        // Could show a loading indicator if one exists in layout
+                        binding.progressBar.setVisibility(View.VISIBLE);
+                        binding.tvError.setVisibility(View.GONE);
                         break;
                     case SUCCESS:
+                        binding.progressBar.setVisibility(View.GONE);
+                        binding.tvError.setVisibility(View.GONE);
                         if (resource.getData() != null) {
                             displayKnowledge(resource.getData());
                         }
                         break;
                     case ERROR:
-                        // Could show error state
+                        binding.progressBar.setVisibility(View.GONE);
+                        binding.tvError.setText(resource.getMessage() != null ?
+                                resource.getMessage() : getString(R.string.error_network));
+                        binding.tvError.setVisibility(View.VISIBLE);
                         break;
                 }
             }

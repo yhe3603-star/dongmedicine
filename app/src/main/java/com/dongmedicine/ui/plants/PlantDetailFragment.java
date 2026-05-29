@@ -61,15 +61,20 @@ public class PlantDetailFragment extends Fragment {
                 switch (resource.getStatus()) {
                     case LOADING:
                         binding.progressBar.setVisibility(View.VISIBLE);
+                        binding.tvError.setVisibility(View.GONE);
                         break;
                     case SUCCESS:
                         binding.progressBar.setVisibility(View.GONE);
+                        binding.tvError.setVisibility(View.GONE);
                         if (resource.getData() != null) {
                             displayPlant(resource.getData());
                         }
                         break;
                     case ERROR:
                         binding.progressBar.setVisibility(View.GONE);
+                        binding.tvError.setText(resource.getMessage() != null ?
+                                resource.getMessage() : getString(R.string.error_network));
+                        binding.tvError.setVisibility(View.VISIBLE);
                         break;
                 }
             }
