@@ -4,41 +4,32 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.dongmedicine.R;
 import com.dongmedicine.adapters.KnowledgeAdapter;
 import com.dongmedicine.data.model.KnowledgeItem;
-import com.dongmedicine.data.repository.Resource;
+import com.dongmedicine.databinding.FragmentKnowledgeBinding;
 import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipGroup;
 
 import java.util.List;
 
 public class KnowledgeFragment extends Fragment implements KnowledgeAdapter.OnItemClickListener {
 
     private KnowledgeViewModel viewModel;
-    private RecyclerView recyclerView;
+    private FragmentKnowledgeBinding binding;
     private KnowledgeAdapter adapter;
-    private ProgressBar progressBar;
-    private TextView tvEmpty;
-    private SwipeRefreshLayout swipeRefresh;
-    private ChipGroup chipGroupCategory;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_knowledge, container, false);
+        binding = FragmentKnowledgeBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
@@ -47,30 +38,22 @@ public class KnowledgeFragment extends Fragment implements KnowledgeAdapter.OnIt
 
         viewModel = new ViewModelProvider(this).get(KnowledgeViewModel.class);
 
-        initViews(view);
+        setupToolbar();
         setupRecyclerView();
         setupCategoryChips();
         setupSwipeRefresh();
         observeData();
     }
 
-    private void initViews(View view) {
-        recyclerView = view.findViewById(R.id.recycler_view);
-        progressBar = view.findViewById(R.id.progress_bar);
-        tvEmpty = view.findViewById(R.id.tv_empty);
-        swipeRefresh = view.findViewById(R.id.swipe_refresh);
-        chipGroupCategory = view.findViewById(R.id.chip_group_category);
-
-        view.findViewById(R.id.toolbar).setOnClickListener(v -> {
-            NavController navController = Navigation.findNavController(view);
-            navController.navigateUp();
-        });
+    private void setupToolbar() {
+        binding.toolbar.setNavigationOnClickListener(v ->
+                Navigation.findNavController(requireView()).navigateUp());
     }
 
     private void setupRecyclerView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new KnowledgeAdapter(this);
-        recyclerView.setAdapter(adapter);
+        binding.recyclerView.setAdapter(adapter);
     }
 
     private void setupCategoryChips() {
@@ -83,19 +66,16 @@ public class KnowledgeFragment extends Fragment implements KnowledgeAdapter.OnIt
                 chip.setChecked(true);
                 viewModel.setSelectedCategory(category);
             });
-            chipGroupCategory.addView(chip);
+            binding.chipGroupCategory.addView(chip);
         }
-        if (chipGroupCategory.getChildCount() > 0) {
-            ((Chip) chipGroupCategory.getChildAt(0)).setChecked(true);
+        if (binding.chipGroupCategory.getChildCount() > 0) {
+            ((Chip) binding.chipGroupCategory.getChildAt(0)).setChecked(true);
         }
     }
 
     private void setupSwipeRefresh() {
-        swipeRefresh.setColorSchemeResources(R.color.primary);
-        swipeRefresh.setOnRefreshListener(() -> {
-            viewModel.loadKnowledge();
-            swipeRefresh.setRefreshing(false);
-        });
+        binding.swipeRefresh.setColorSchemeResources(R.color.primary);
+        binding.swipeRefresh.setOnRefreshListener(() -> viewModel.loadKnowledge());
     }
 
     private void observeData() {
@@ -106,14 +86,16 @@ public class KnowledgeFragment extends Fragment implements KnowledgeAdapter.OnIt
                         showLoading();
                         break;
                     case SUCCESS:
+                        binding.swipeRefresh.setRefreshing(false);
                         hideLoading();
                         if (resource.getData() != null && !resource.getData().isEmpty()) {
-                            showData(resource.getData());
+                            showData();
                         } else {
                             showEmpty();
                         }
                         break;
                     case ERROR:
+                        binding.swipeRefresh.setRefreshing(false);
                         hideLoading();
                         showError(resource.getMessage());
                         break;
@@ -130,43 +112,47 @@ public class KnowledgeFragment extends Fragment implements KnowledgeAdapter.OnIt
     }
 
     private void showLoading() {
-        progressBar.setVisibility(View.VISIBLE);
-        tvEmpty.setVisibility(View.GONE);
+        binding.progressBar.setVisibility(View.VISIBLE);
+        binding.tvEmpty.setVisibility(View.GONE);
     }
 
     private void hideLoading() {
-        progressBar.setVisibility(View.GONE);
+        binding.progressBar.setVisibility(View.GONE);
     }
 
-    private void showData(List<KnowledgeItem> items) {
-        recyclerView.setVisibility(View.VISIBLE);
-        tvEmpty.setVisibility(View.GONE);
+    private void showData() {
+        binding.recyclerView.setVisibility(View.VISIBLE);
+        binding.tvEmpty.setVisibility(View.GONE);
     }
 
     private void showEmpty() {
-        recyclerView.setVisibility(View.GONE);
-        tvEmpty.setVisibility(View.VISIBLE);
+        binding.recyclerView.setVisibility(View.GONE);
+        binding.tvEmpty.setVisibility(View.VISIBLE);
     }
 
     private void showError(String message) {
-        tvEmpty.setText(message != null ? message : getString(R.string.error_network));
-        tvEmpty.setVisibility(View.VISIBLE);
-        recyclerView.setVisibility(View.GONE);
+        binding.tvEmpty.setText(message != null ? message : getString(R.string.error_network));
+        binding.tvEmpty.setVisibility(View.VISIBLE);
+        binding.recyclerView.setVisibility(View.GONE);
     }
 
     private void updateEmptyState(List<KnowledgeItem> items) {
         if (items == null || items.isEmpty()) {
             showEmpty();
         } else {
-            showData(items);
+            showData();
         }
     }
 
     @Override
     public void onItemClick(KnowledgeItem item) {
-        Bundle bundle = new Bundle();
-        bundle.putInt("knowledgeId", item.getId());
-        NavController navController = Navigation.findNavController(requireView());
-        navController.navigate(R.id.action_knowledgeFragment_to_knowledgeDetailFragment, bundle);
+        Navigation.findNavController(requireView())
+                .navigate(KnowledgeFragmentDirections.actionKnowledgeFragmentToKnowledgeDetailFragment(item.getId()));
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

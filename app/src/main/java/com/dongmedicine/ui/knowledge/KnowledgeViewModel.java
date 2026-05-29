@@ -14,50 +14,44 @@ import java.util.List;
 public class KnowledgeViewModel extends ViewModel {
 
     private final DongMedicineRepository repository;
-    private LiveData<Resource<List<KnowledgeItem>>> knowledgeList;
-    private final MutableLiveData<List<KnowledgeItem>> filteredKnowledge;
-    private final MutableLiveData<String> selectedCategory;
+    private final MutableLiveData<Resource<List<KnowledgeItem>>> knowledgeList = new MutableLiveData<>();
+    private final MutableLiveData<List<KnowledgeItem>> filteredKnowledge = new MutableLiveData<>();
+    private String selectedCategory;
 
     public KnowledgeViewModel() {
         repository = DongMedicineRepository.getInstance();
-        filteredKnowledge = new MutableLiveData<>();
-        selectedCategory = new MutableLiveData<>("全部");
+        selectedCategory = "全部";
         loadKnowledge();
     }
 
-    public LiveData<Resource<List<KnowledgeItem>>> getKnowledgeList() {
-        return knowledgeList;
-    }
-
-    public LiveData<List<KnowledgeItem>> getFilteredKnowledge() {
-        return filteredKnowledge;
-    }
+    public LiveData<Resource<List<KnowledgeItem>>> getKnowledgeList() { return knowledgeList; }
+    public LiveData<List<KnowledgeItem>> getFilteredKnowledge() { return filteredKnowledge; }
 
     public void loadKnowledge() {
-        knowledgeList = repository.getKnowledgeList();
+        repository.getKnowledgeList(knowledgeList);
     }
 
     public void setSelectedCategory(String category) {
-        selectedCategory.setValue(category);
+        selectedCategory = category;
         applyFilters();
     }
 
     public void applyFilters() {
-        if (knowledgeList.getValue() != null && knowledgeList.getValue().getData() != null) {
-            List<KnowledgeItem> sourceList = knowledgeList.getValue().getData();
-            List<KnowledgeItem> result = new ArrayList<>();
-            String category = selectedCategory.getValue() != null ? selectedCategory.getValue() : "全部";
+        Resource<List<KnowledgeItem>> resource = knowledgeList.getValue();
+        if (resource == null || resource.getData() == null) return;
 
-            for (KnowledgeItem item : sourceList) {
-                boolean matchesCategory = category.equals("全部") ||
-                        (item.getCategory() != null && item.getCategory().equals(category));
+        List<KnowledgeItem> sourceList = resource.getData();
+        List<KnowledgeItem> result = new ArrayList<>();
+        String category = selectedCategory != null ? selectedCategory : "全部";
 
-                if (matchesCategory) {
-                    result.add(item);
-                }
+        for (KnowledgeItem item : sourceList) {
+            boolean matchesCategory = category.equals("全部") ||
+                    (item.getCategory() != null && item.getCategory().equals(category));
+            if (matchesCategory) {
+                result.add(item);
             }
-            filteredKnowledge.setValue(result);
         }
+        filteredKnowledge.setValue(result);
     }
 
     public String[] getCategories() {

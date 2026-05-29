@@ -14,61 +14,54 @@ import java.util.List;
 public class PlantsViewModel extends ViewModel {
 
     private final DongMedicineRepository repository;
-    private LiveData<Resource<List<Plant>>> plants;
-    private final MutableLiveData<List<Plant>> filteredPlants;
-    private final MutableLiveData<String> searchQuery;
-    private final MutableLiveData<String> selectedCategory;
+    private final MutableLiveData<Resource<List<Plant>>> plants = new MutableLiveData<>();
+    private final MutableLiveData<List<Plant>> filteredPlants = new MutableLiveData<>();
+    private String searchQuery = "";
+    private String selectedCategory;
 
     public PlantsViewModel() {
         repository = DongMedicineRepository.getInstance();
-        filteredPlants = new MutableLiveData<>();
-        searchQuery = new MutableLiveData<>("");
-        selectedCategory = new MutableLiveData<>("全部");
+        selectedCategory = "全部";
         loadPlants();
     }
 
-    public LiveData<Resource<List<Plant>>> getPlants() {
-        return plants;
-    }
-
-    public LiveData<List<Plant>> getFilteredPlants() {
-        return filteredPlants;
-    }
+    public LiveData<Resource<List<Plant>>> getPlants() { return plants; }
+    public LiveData<List<Plant>> getFilteredPlants() { return filteredPlants; }
 
     public void loadPlants() {
-        plants = repository.getPlants();
+        repository.getPlants(plants);
     }
 
     public void setSearchQuery(String query) {
-        searchQuery.setValue(query);
+        searchQuery = query;
         applyFilters();
     }
 
     public void setSelectedCategory(String category) {
-        selectedCategory.setValue(category);
+        selectedCategory = category;
         applyFilters();
     }
 
     public void applyFilters() {
-        if (plants.getValue() != null && plants.getValue().getData() != null) {
-            List<Plant> sourceList = plants.getValue().getData();
-            List<Plant> result = new ArrayList<>();
-            String query = searchQuery.getValue() != null ? searchQuery.getValue().toLowerCase() : "";
-            String category = selectedCategory.getValue() != null ? selectedCategory.getValue() : "全部";
+        Resource<List<Plant>> resource = plants.getValue();
+        if (resource == null || resource.getData() == null) return;
 
-            for (Plant plant : sourceList) {
-                boolean matchesQuery = query.isEmpty() ||
-                        plant.getName().toLowerCase().contains(query) ||
-                        (plant.getScientificName() != null && plant.getScientificName().toLowerCase().contains(query));
-                boolean matchesCategory = category.equals("全部") ||
-                        (plant.getCategory() != null && plant.getCategory().equals(category));
+        List<Plant> sourceList = resource.getData();
+        List<Plant> result = new ArrayList<>();
+        String query = searchQuery != null ? searchQuery.toLowerCase() : "";
+        String category = selectedCategory != null ? selectedCategory : "全部";
 
-                if (matchesQuery && matchesCategory) {
-                    result.add(plant);
-                }
+        for (Plant plant : sourceList) {
+            boolean matchesQuery = query.isEmpty() ||
+                    plant.getName().toLowerCase().contains(query) ||
+                    (plant.getScientificName() != null && plant.getScientificName().toLowerCase().contains(query));
+            boolean matchesCategory = category.equals("全部") ||
+                    (plant.getCategory() != null && plant.getCategory().equals(category));
+            if (matchesQuery && matchesCategory) {
+                result.add(plant);
             }
-            filteredPlants.setValue(result);
         }
+        filteredPlants.setValue(result);
     }
 
     public String[] getCategories() {

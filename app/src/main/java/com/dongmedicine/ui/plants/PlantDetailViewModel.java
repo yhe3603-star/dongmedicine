@@ -11,17 +11,15 @@ import com.dongmedicine.data.repository.Resource;
 public class PlantDetailViewModel extends ViewModel {
 
     private final DongMedicineRepository repository;
-    private LiveData<Resource<Plant>> plant;
+    private final MutableLiveData<Resource<Plant>> plant = new MutableLiveData<>();
 
     public PlantDetailViewModel() {
         repository = DongMedicineRepository.getInstance();
     }
 
-    public LiveData<Resource<Plant>> getPlant() {
-        return plant;
-    }
+    public LiveData<Resource<Plant>> getPlant() { return plant; }
 
     public void loadPlant(int plantId) {
-        plant = repository.getPlantById(plantId);
+        repository.getPlantById(plantId, plant);
     }
 }

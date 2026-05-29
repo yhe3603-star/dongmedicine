@@ -4,43 +4,33 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.dongmedicine.R;
 import com.dongmedicine.adapters.PlantAdapter;
 import com.dongmedicine.data.model.Plant;
-import com.dongmedicine.data.repository.Resource;
+import com.dongmedicine.databinding.FragmentPlantsBinding;
 import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipGroup;
 
 import java.util.List;
 
 public class PlantsFragment extends Fragment implements PlantAdapter.OnItemClickListener {
 
     private PlantsViewModel viewModel;
-    private RecyclerView recyclerView;
+    private FragmentPlantsBinding binding;
     private PlantAdapter adapter;
-    private ProgressBar progressBar;
-    private TextView tvEmpty;
-    private SwipeRefreshLayout swipeRefresh;
-    private SearchView searchView;
-    private ChipGroup chipGroupCategory;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_plants, container, false);
+        binding = FragmentPlantsBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
@@ -49,7 +39,7 @@ public class PlantsFragment extends Fragment implements PlantAdapter.OnItemClick
 
         viewModel = new ViewModelProvider(this).get(PlantsViewModel.class);
 
-        initViews(view);
+        setupToolbar();
         setupRecyclerView();
         setupSearch();
         setupCategoryChips();
@@ -57,28 +47,19 @@ public class PlantsFragment extends Fragment implements PlantAdapter.OnItemClick
         observeData();
     }
 
-    private void initViews(View view) {
-        recyclerView = view.findViewById(R.id.recycler_view);
-        progressBar = view.findViewById(R.id.progress_bar);
-        tvEmpty = view.findViewById(R.id.tv_empty);
-        swipeRefresh = view.findViewById(R.id.swipe_refresh);
-        searchView = view.findViewById(R.id.search_view);
-        chipGroupCategory = view.findViewById(R.id.chip_group_category);
-
-        view.findViewById(R.id.toolbar).setOnClickListener(v -> {
-            NavController navController = Navigation.findNavController(view);
-            navController.navigateUp();
-        });
+    private void setupToolbar() {
+        binding.toolbar.setNavigationOnClickListener(v ->
+                Navigation.findNavController(requireView()).navigateUp());
     }
 
     private void setupRecyclerView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new PlantAdapter(this);
-        recyclerView.setAdapter(adapter);
+        binding.recyclerView.setAdapter(adapter);
     }
 
     private void setupSearch() {
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 viewModel.setSearchQuery(query);
@@ -103,19 +84,16 @@ public class PlantsFragment extends Fragment implements PlantAdapter.OnItemClick
                 chip.setChecked(true);
                 viewModel.setSelectedCategory(category);
             });
-            chipGroupCategory.addView(chip);
+            binding.chipGroupCategory.addView(chip);
         }
-        if (chipGroupCategory.getChildCount() > 0) {
-            ((Chip) chipGroupCategory.getChildAt(0)).setChecked(true);
+        if (binding.chipGroupCategory.getChildCount() > 0) {
+            ((Chip) binding.chipGroupCategory.getChildAt(0)).setChecked(true);
         }
     }
 
     private void setupSwipeRefresh() {
-        swipeRefresh.setColorSchemeResources(R.color.primary);
-        swipeRefresh.setOnRefreshListener(() -> {
-            viewModel.loadPlants();
-            swipeRefresh.setRefreshing(false);
-        });
+        binding.swipeRefresh.setColorSchemeResources(R.color.primary);
+        binding.swipeRefresh.setOnRefreshListener(() -> viewModel.loadPlants());
     }
 
     private void observeData() {
@@ -126,14 +104,16 @@ public class PlantsFragment extends Fragment implements PlantAdapter.OnItemClick
                         showLoading();
                         break;
                     case SUCCESS:
+                        binding.swipeRefresh.setRefreshing(false);
                         hideLoading();
                         if (resource.getData() != null && !resource.getData().isEmpty()) {
-                            showData(resource.getData());
+                            showData();
                         } else {
                             showEmpty();
                         }
                         break;
                     case ERROR:
+                        binding.swipeRefresh.setRefreshing(false);
                         hideLoading();
                         showError(resource.getMessage());
                         break;
@@ -150,43 +130,47 @@ public class PlantsFragment extends Fragment implements PlantAdapter.OnItemClick
     }
 
     private void showLoading() {
-        progressBar.setVisibility(View.VISIBLE);
-        tvEmpty.setVisibility(View.GONE);
+        binding.progressBar.setVisibility(View.VISIBLE);
+        binding.tvEmpty.setVisibility(View.GONE);
     }
 
     private void hideLoading() {
-        progressBar.setVisibility(View.GONE);
+        binding.progressBar.setVisibility(View.GONE);
     }
 
-    private void showData(List<Plant> plants) {
-        recyclerView.setVisibility(View.VISIBLE);
-        tvEmpty.setVisibility(View.GONE);
+    private void showData() {
+        binding.recyclerView.setVisibility(View.VISIBLE);
+        binding.tvEmpty.setVisibility(View.GONE);
     }
 
     private void showEmpty() {
-        recyclerView.setVisibility(View.GONE);
-        tvEmpty.setVisibility(View.VISIBLE);
+        binding.recyclerView.setVisibility(View.GONE);
+        binding.tvEmpty.setVisibility(View.VISIBLE);
     }
 
     private void showError(String message) {
-        tvEmpty.setText(message != null ? message : getString(R.string.error_network));
-        tvEmpty.setVisibility(View.VISIBLE);
-        recyclerView.setVisibility(View.GONE);
+        binding.tvEmpty.setText(message != null ? message : getString(R.string.error_network));
+        binding.tvEmpty.setVisibility(View.VISIBLE);
+        binding.recyclerView.setVisibility(View.GONE);
     }
 
     private void updateEmptyState(List<Plant> plants) {
         if (plants == null || plants.isEmpty()) {
             showEmpty();
         } else {
-            showData(plants);
+            showData();
         }
     }
 
     @Override
     public void onItemClick(Plant plant) {
-        Bundle bundle = new Bundle();
-        bundle.putInt("plantId", plant.getId());
-        NavController navController = Navigation.findNavController(requireView());
-        navController.navigate(R.id.action_plantsFragment_to_plantDetailFragment, bundle);
+        Navigation.findNavController(requireView())
+                .navigate(PlantsFragmentDirections.actionPlantsFragmentToPlantDetailFragment(plant.getId()));
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

@@ -14,50 +14,44 @@ import java.util.List;
 public class InheritorsViewModel extends ViewModel {
 
     private final DongMedicineRepository repository;
-    private LiveData<Resource<List<Inheritor>>> inheritors;
-    private final MutableLiveData<List<Inheritor>> filteredInheritors;
-    private final MutableLiveData<String> selectedLevel;
+    private final MutableLiveData<Resource<List<Inheritor>>> inheritors = new MutableLiveData<>();
+    private final MutableLiveData<List<Inheritor>> filteredInheritors = new MutableLiveData<>();
+    private String selectedLevel;
 
     public InheritorsViewModel() {
         repository = DongMedicineRepository.getInstance();
-        filteredInheritors = new MutableLiveData<>();
-        selectedLevel = new MutableLiveData<>("全部");
+        selectedLevel = "全部";
         loadInheritors();
     }
 
-    public LiveData<Resource<List<Inheritor>>> getInheritors() {
-        return inheritors;
-    }
-
-    public LiveData<List<Inheritor>> getFilteredInheritors() {
-        return filteredInheritors;
-    }
+    public LiveData<Resource<List<Inheritor>>> getInheritors() { return inheritors; }
+    public LiveData<List<Inheritor>> getFilteredInheritors() { return filteredInheritors; }
 
     public void loadInheritors() {
-        inheritors = repository.getInheritors();
+        repository.getInheritors(inheritors);
     }
 
     public void setSelectedLevel(String level) {
-        selectedLevel.setValue(level);
+        selectedLevel = level;
         applyFilters();
     }
 
     public void applyFilters() {
-        if (inheritors.getValue() != null && inheritors.getValue().getData() != null) {
-            List<Inheritor> sourceList = inheritors.getValue().getData();
-            List<Inheritor> result = new ArrayList<>();
-            String level = selectedLevel.getValue() != null ? selectedLevel.getValue() : "全部";
+        Resource<List<Inheritor>> resource = inheritors.getValue();
+        if (resource == null || resource.getData() == null) return;
 
-            for (Inheritor inheritor : sourceList) {
-                boolean matchesLevel = level.equals("全部") ||
-                        (inheritor.getTitle() != null && inheritor.getTitle().contains(level));
+        List<Inheritor> sourceList = resource.getData();
+        List<Inheritor> result = new ArrayList<>();
+        String level = selectedLevel != null ? selectedLevel : "全部";
 
-                if (matchesLevel) {
-                    result.add(inheritor);
-                }
+        for (Inheritor inheritor : sourceList) {
+            boolean matchesLevel = level.equals("全部") ||
+                    (inheritor.getTitle() != null && inheritor.getTitle().contains(level));
+            if (matchesLevel) {
+                result.add(inheritor);
             }
-            filteredInheritors.setValue(result);
         }
+        filteredInheritors.setValue(result);
     }
 
     public String[] getLevels() {
