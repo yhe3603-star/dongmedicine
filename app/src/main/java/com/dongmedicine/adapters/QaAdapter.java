@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dongmedicine.R;
 import com.dongmedicine.ui.qa.QaViewModel;
 
+import java.util.Objects;
+
 public class QaAdapter extends ListAdapter<QaViewModel.QaItem, QaAdapter.QaViewHolder> {
 
     public QaAdapter() {
@@ -24,7 +26,9 @@ public class QaAdapter extends ListAdapter<QaViewModel.QaItem, QaAdapter.QaViewH
 
             @Override
             public boolean areContentsTheSame(@NonNull QaViewModel.QaItem oldItem, @NonNull QaViewModel.QaItem newItem) {
-                return oldItem.getQuestion().equals(newItem.getQuestion());
+                return Objects.equals(oldItem.getQuestion(), newItem.getQuestion())
+                        && Objects.equals(oldItem.getAnswer(), newItem.getAnswer())
+                        && Objects.equals(oldItem.getCategory(), newItem.getCategory());
             }
         });
     }

@@ -15,9 +15,11 @@ import com.bumptech.glide.Glide;
 import com.dongmedicine.R;
 import com.dongmedicine.data.model.Plant;
 
+import java.util.Objects;
+
 public class PlantAdapter extends ListAdapter<Plant, PlantAdapter.PlantViewHolder> {
 
-    private OnItemClickListener listener;
+    private final OnItemClickListener listener;
 
     public interface OnItemClickListener {
         void onItemClick(Plant plant);
@@ -32,7 +34,11 @@ public class PlantAdapter extends ListAdapter<Plant, PlantAdapter.PlantViewHolde
 
             @Override
             public boolean areContentsTheSame(@NonNull Plant oldItem, @NonNull Plant newItem) {
-                return oldItem.getName().equals(newItem.getName());
+                return Objects.equals(oldItem.getName(), newItem.getName())
+                        && Objects.equals(oldItem.getScientificName(), newItem.getScientificName())
+                        && Objects.equals(oldItem.getDescription(), newItem.getDescription())
+                        && Objects.equals(oldItem.getImageUrl(), newItem.getImageUrl())
+                        && Objects.equals(oldItem.getEffects(), newItem.getEffects());
             }
         });
         this.listener = listener;

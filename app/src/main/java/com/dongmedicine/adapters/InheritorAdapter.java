@@ -15,9 +15,11 @@ import com.bumptech.glide.Glide;
 import com.dongmedicine.R;
 import com.dongmedicine.data.model.Inheritor;
 
+import java.util.Objects;
+
 public class InheritorAdapter extends ListAdapter<Inheritor, InheritorAdapter.InheritorViewHolder> {
 
-    private OnItemClickListener listener;
+    private final OnItemClickListener listener;
 
     public interface OnItemClickListener {
         void onItemClick(Inheritor inheritor);
@@ -32,7 +34,10 @@ public class InheritorAdapter extends ListAdapter<Inheritor, InheritorAdapter.In
 
             @Override
             public boolean areContentsTheSame(@NonNull Inheritor oldItem, @NonNull Inheritor newItem) {
-                return oldItem.getName().equals(newItem.getName());
+                return Objects.equals(oldItem.getName(), newItem.getName())
+                        && Objects.equals(oldItem.getTitle(), newItem.getTitle())
+                        && Objects.equals(oldItem.getSpecialization(), newItem.getSpecialization())
+                        && Objects.equals(oldItem.getImageUrl(), newItem.getImageUrl());
             }
         });
         this.listener = listener;

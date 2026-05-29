@@ -13,9 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dongmedicine.R;
 import com.dongmedicine.data.model.KnowledgeItem;
 
+import java.util.Objects;
+
 public class KnowledgeAdapter extends ListAdapter<KnowledgeItem, KnowledgeAdapter.KnowledgeViewHolder> {
 
-    private OnItemClickListener listener;
+    private final OnItemClickListener listener;
 
     public interface OnItemClickListener {
         void onItemClick(KnowledgeItem item);
@@ -30,7 +32,10 @@ public class KnowledgeAdapter extends ListAdapter<KnowledgeItem, KnowledgeAdapte
 
             @Override
             public boolean areContentsTheSame(@NonNull KnowledgeItem oldItem, @NonNull KnowledgeItem newItem) {
-                return oldItem.getTitle().equals(newItem.getTitle());
+                return Objects.equals(oldItem.getTitle(), newItem.getTitle())
+                        && Objects.equals(oldItem.getCategory(), newItem.getCategory())
+                        && Objects.equals(oldItem.getContent(), newItem.getContent())
+                        && Objects.equals(oldItem.getAuthor(), newItem.getAuthor());
             }
         });
         this.listener = listener;
