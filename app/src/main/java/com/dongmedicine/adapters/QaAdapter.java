@@ -11,27 +11,27 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dongmedicine.R;
-import com.dongmedicine.ui.qa.QaViewModel;
+import com.dongmedicine.data.model.QaItem;
 
 import java.util.Objects;
 
-public class QaAdapter extends ListAdapter<QaViewModel.QaItem, QaAdapter.QaViewHolder> {
+public class QaAdapter extends ListAdapter<QaItem, QaAdapter.QaViewHolder> {
 
     private final OnItemClickListener listener;
 
     public interface OnItemClickListener {
-        void onItemClick(QaViewModel.QaItem item);
+        void onItemClick(QaItem item);
     }
 
     public QaAdapter(OnItemClickListener listener) {
-        super(new DiffUtil.ItemCallback<QaViewModel.QaItem>() {
+        super(new DiffUtil.ItemCallback<QaItem>() {
             @Override
-            public boolean areItemsTheSame(@NonNull QaViewModel.QaItem oldItem, @NonNull QaViewModel.QaItem newItem) {
+            public boolean areItemsTheSame(@NonNull QaItem oldItem, @NonNull QaItem newItem) {
                 return oldItem.getId() == newItem.getId();
             }
 
             @Override
-            public boolean areContentsTheSame(@NonNull QaViewModel.QaItem oldItem, @NonNull QaViewModel.QaItem newItem) {
+            public boolean areContentsTheSame(@NonNull QaItem oldItem, @NonNull QaItem newItem) {
                 return Objects.equals(oldItem.getQuestion(), newItem.getQuestion())
                         && Objects.equals(oldItem.getAnswer(), newItem.getAnswer())
                         && Objects.equals(oldItem.getCategory(), newItem.getCategory());
@@ -50,7 +50,7 @@ public class QaAdapter extends ListAdapter<QaViewModel.QaItem, QaAdapter.QaViewH
 
     @Override
     public void onBindViewHolder(@NonNull QaViewHolder holder, int position) {
-        QaViewModel.QaItem item = getCurrentList().get(position);
+        QaItem item = getCurrentList().get(position);
         holder.bind(item);
     }
 
@@ -66,7 +66,7 @@ public class QaAdapter extends ListAdapter<QaViewModel.QaItem, QaAdapter.QaViewH
             categoryText = itemView.findViewById(R.id.qa_category);
         }
 
-        void bind(QaViewModel.QaItem item) {
+        void bind(QaItem item) {
             questionText.setText(item.getQuestion());
             answerText.setText(item.getAnswer());
             categoryText.setText(item.getCategory());

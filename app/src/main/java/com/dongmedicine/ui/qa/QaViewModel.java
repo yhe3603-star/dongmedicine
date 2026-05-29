@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.dongmedicine.data.model.QaItem;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,29 +81,4 @@ public class QaViewModel extends ViewModel {
         qaList.setValue(items);
     }
 
-    public static class QaItem {
-        private int id;
-        private String question;
-        private String answer;
-        private String category;
-
-        public QaItem(int id, String question, String answer, String category) {
-            this.id = id;
-            this.question = question;
-            this.answer = answer;
-            this.category = category;
-        }
-
-        public int getId() { return id; }
-        public void setId(int id) { this.id = id; }
-
-        public String getQuestion() { return question; }
-        public void setQuestion(String question) { this.question = question; }
-
-        public String getAnswer() { return answer; }
-        public void setAnswer(String answer) { this.answer = answer; }
-
-        public String getCategory() { return category; }
-        public void setCategory(String category) { this.category = category; }
-    }
 }
