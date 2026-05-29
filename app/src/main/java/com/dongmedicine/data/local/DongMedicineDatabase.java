@@ -7,7 +7,7 @@ import com.dongmedicine.data.model.Inheritor;
 import com.dongmedicine.data.model.KnowledgeItem;
 import com.dongmedicine.data.model.Plant;
 
-@Database(entities = {Plant.class, Inheritor.class, KnowledgeItem.class}, version = 1, exportSchema = false)
+@Database(entities = {Plant.class, Inheritor.class, KnowledgeItem.class}, version = 1, exportSchema = true)
 public abstract class DongMedicineDatabase extends RoomDatabase {
     public abstract PlantDao plantDao();
     public abstract InheritorDao inheritorDao();
