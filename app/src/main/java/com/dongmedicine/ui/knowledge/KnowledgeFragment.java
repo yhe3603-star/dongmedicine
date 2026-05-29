@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.dongmedicine.R;
 import com.dongmedicine.adapters.KnowledgeAdapter;
+import com.dongmedicine.adapters.SpaceItemDecoration;
 import com.dongmedicine.data.model.KnowledgeItem;
 import com.dongmedicine.databinding.FragmentKnowledgeBinding;
 import com.google.android.material.chip.Chip;
@@ -57,6 +58,8 @@ public class KnowledgeFragment extends Fragment implements KnowledgeAdapter.OnIt
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new KnowledgeAdapter(this);
         binding.recyclerView.setAdapter(adapter);
+        int spacing = (int) (8 * getResources().getDisplayMetrics().density);
+        binding.recyclerView.addItemDecoration(new SpaceItemDecoration(spacing));
     }
 
     private void setupCategoryChips() {

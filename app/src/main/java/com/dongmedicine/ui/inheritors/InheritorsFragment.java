@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.dongmedicine.R;
 import com.dongmedicine.adapters.InheritorAdapter;
+import com.dongmedicine.adapters.SpaceItemDecoration;
 import com.dongmedicine.data.model.Inheritor;
 import com.dongmedicine.databinding.FragmentInheritorsBinding;
 import com.google.android.material.chip.Chip;
@@ -57,6 +58,8 @@ public class InheritorsFragment extends Fragment implements InheritorAdapter.OnI
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new InheritorAdapter(this);
         binding.recyclerView.setAdapter(adapter);
+        int spacing = (int) (8 * getResources().getDisplayMetrics().density);
+        binding.recyclerView.addItemDecoration(new SpaceItemDecoration(spacing));
     }
 
     private void setupLevelChips() {

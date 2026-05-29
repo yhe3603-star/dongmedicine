@@ -13,6 +13,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.dongmedicine.adapters.QaAdapter;
+import com.dongmedicine.adapters.SpaceItemDecoration;
 import com.dongmedicine.databinding.FragmentQaBinding;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -49,8 +50,10 @@ public class QaFragment extends Fragment {
 
     private void setupRecyclerView() {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new QaAdapter();
+        adapter = new QaAdapter(item -> { /* no-op for now */ });
         binding.recyclerView.setAdapter(adapter);
+        int spacing = (int) (8 * getResources().getDisplayMetrics().density);
+        binding.recyclerView.addItemDecoration(new SpaceItemDecoration(spacing));
     }
 
     private void setupListeners() {

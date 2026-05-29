@@ -225,6 +225,7 @@
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             android:src="@android:drawable/ic_menu_gallery"
+                            android:contentDescription="@string/desc_home_plants"
                             app:tint="@color/white" />
 
                         <TextView
@@ -261,6 +262,7 @@
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             android:src="@android:drawable/ic_menu_myplaces"
+                            android:contentDescription="@string/desc_home_inheritors"
                             app:tint="@color/white" />
 
                         <TextView
@@ -297,6 +299,7 @@
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             android:src="@android:drawable/ic_menu_info_details"
+                            android:contentDescription="@string/desc_home_knowledge"
                             app:tint="@color/white" />
 
                         <TextView
@@ -333,6 +336,7 @@
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             android:src="@android:drawable/ic_menu_help"
+                            android:contentDescription="@string/desc_home_qa"
                             app:tint="@color/white" />
 
                         <TextView

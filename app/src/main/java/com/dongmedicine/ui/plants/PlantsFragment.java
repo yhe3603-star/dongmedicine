@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.dongmedicine.R;
 import com.dongmedicine.adapters.PlantAdapter;
+import com.dongmedicine.adapters.SpaceItemDecoration;
 import com.dongmedicine.data.model.Plant;
 import com.dongmedicine.databinding.FragmentPlantsBinding;
 import com.google.android.material.chip.Chip;
@@ -59,6 +60,8 @@ public class PlantsFragment extends Fragment implements PlantAdapter.OnItemClick
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new PlantAdapter(this);
         binding.recyclerView.setAdapter(adapter);
+        int spacing = (int) (8 * getResources().getDisplayMetrics().density);
+        binding.recyclerView.addItemDecoration(new SpaceItemDecoration(spacing));
     }
 
     private void setupSearch() {
