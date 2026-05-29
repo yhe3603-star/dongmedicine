@@ -160,11 +160,12 @@ public class KnowledgeFragment extends Fragment implements KnowledgeAdapter.OnIt
 
     @Override
     public void onItemClick(KnowledgeItem item) {
-        KnowledgeDetailFragmentArgs args = new KnowledgeDetailFragmentArgs.Builder()
+        Bundle args = new KnowledgeDetailFragmentArgs.Builder()
                 .setKnowledgeId(item.getId())
-                .build();
+                .build()
+                .toBundle();
         Navigation.findNavController(requireView())
-                .navigate(KnowledgeFragmentDirections.actionKnowledgeFragmentToKnowledgeDetailFragment(), args);
+                .navigate(R.id.action_knowledgeFragment_to_knowledgeDetailFragment, args);
     }
 
     @Override

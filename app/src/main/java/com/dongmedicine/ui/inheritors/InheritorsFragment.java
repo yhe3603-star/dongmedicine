@@ -160,11 +160,12 @@ public class InheritorsFragment extends Fragment implements InheritorAdapter.OnI
 
     @Override
     public void onItemClick(Inheritor inheritor) {
-        InheritorDetailFragmentArgs args = new InheritorDetailFragmentArgs.Builder()
+        Bundle args = new InheritorDetailFragmentArgs.Builder()
                 .setInheritorId(inheritor.getId())
-                .build();
+                .build()
+                .toBundle();
         Navigation.findNavController(requireView())
-                .navigate(InheritorsFragmentDirections.actionInheritorsFragmentToInheritorDetailFragment(), args);
+                .navigate(R.id.action_inheritorsFragment_to_inheritorDetailFragment, args);
     }
 
     @Override

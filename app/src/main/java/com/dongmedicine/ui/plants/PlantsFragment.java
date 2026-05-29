@@ -178,11 +178,12 @@ public class PlantsFragment extends Fragment implements PlantAdapter.OnItemClick
 
     @Override
     public void onItemClick(Plant plant) {
-        PlantDetailFragmentArgs args = new PlantDetailFragmentArgs.Builder()
+        Bundle args = new PlantDetailFragmentArgs.Builder()
                 .setPlantId(plant.getId())
-                .build();
+                .build()
+                .toBundle();
         Navigation.findNavController(requireView())
-                .navigate(PlantsFragmentDirections.actionPlantsFragmentToPlantDetailFragment(), args);
+                .navigate(R.id.action_plantsFragment_to_plantDetailFragment, args);
     }
 
     @Override
