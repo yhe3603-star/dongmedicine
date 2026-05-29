@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
@@ -31,7 +32,7 @@
                 android:id="@+id/plant_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="植物名称"
+                tools:text="植物名称"
                 android:textColor="@color/text_primary"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -41,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="学名"
+                tools:text="学名"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp"
                 android:textStyle="italic" />
@@ -53,7 +54,7 @@
                 android:layout_marginTop="8dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="功效描述"
+                tools:text="功效描述"
                 android:textColor="@color/text_secondary"
                 android:textSize="13sp" />
 

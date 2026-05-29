@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
@@ -31,7 +32,7 @@
                 android:id="@+id/inheritor_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="传承人姓名"
+                tools:text="传承人姓名"
                 android:textColor="@color/text_primary"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -41,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="国家级传承人"
+                tools:text="国家级传承人"
                 android:textColor="@color/primary"
                 android:textSize="14sp" />
 
@@ -50,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="擅长领域"
+                tools:text="擅长领域"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
 
