@@ -14,19 +14,19 @@
     </style>
 
     <!-- Text styles -->
-    <style name="Widget.Dongmedicine.SectionTitle">
+    <style name="Widget.Dongmedicine.SectionTitle" parent="">
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/on_surface</item>
     </style>
 
-    <style name="Widget.Dongmedicine.BodyText">
+    <style name="Widget.Dongmedicine.BodyText" parent="">
         <item name="android:textSize">@dimen/text_size_body</item>
         <item name="android:textColor">@color/on_surface</item>
         <item name="android:lineSpacingExtra">6dp</item>
     </style>
 
-    <style name="Widget.Dongmedicine.Caption">
+    <style name="Widget.Dongmedicine.Caption" parent="">
         <item name="android:textSize">@dimen/text_size_caption</item>
         <item name="android:textColor">@color/on_surface_variant</item>
     </style>
