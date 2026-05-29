@@ -16,6 +16,12 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += mapOf("room.schemaLocation" to "$projectDir/schemas")
+            }
+        }
     }
 
     buildTypes {
@@ -60,11 +66,11 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.fragment)
-    implementation("androidx.cardview:cardview:1.0.0")
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    implementation(libs.cardview)
+    implementation(libs.swiperefreshlayout)
     annotationProcessor(libs.room.compiler)
     annotationProcessor(libs.hilt.compiler)
-    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
+    annotationProcessor(libs.glide.compiler)
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
     testImplementation(libs.core.testing)
