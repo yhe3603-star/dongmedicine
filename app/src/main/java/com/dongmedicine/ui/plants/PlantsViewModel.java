@@ -1,6 +1,7 @@
 package com.dongmedicine.ui.plants;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -19,10 +20,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class PlantsViewModel extends ViewModel {
 
     private final DongMedicineRepository repository;
-    private LiveData<Resource<List<Plant>>> plants;
+    private final MediatorLiveData<Resource<List<Plant>>> plants = new MediatorLiveData<>();
     private final MutableLiveData<List<Plant>> filteredPlants = new MutableLiveData<>();
     private String searchQuery = "";
     private String selectedCategory;
+    private LiveData<Resource<List<Plant>>> currentSource;
 
     @Inject
     public PlantsViewModel(DongMedicineRepository repository) {
@@ -35,7 +37,16 @@ public class PlantsViewModel extends ViewModel {
     public LiveData<List<Plant>> getFilteredPlants() { return filteredPlants; }
 
     public void loadPlants() {
-        plants = repository.getPlants();
+        if (currentSource != null) {
+            plants.removeSource(currentSource);
+        }
+        currentSource = repository.getPlants();
+        plants.addSource(currentSource, resource -> {
+            plants.setValue(resource);
+            if (resource != null && resource.isSuccess()) {
+                applyFilters();
+            }
+        });
     }
 
     public void setSearchQuery(String query) {
@@ -49,7 +60,7 @@ public class PlantsViewModel extends ViewModel {
     }
 
     public void applyFilters() {
-        Resource<List<Plant>> resource = plants != null ? plants.getValue() : null;
+        Resource<List<Plant>> resource = plants.getValue();
         if (resource == null || resource.getData() == null) return;
 
         List<Plant> sourceList = resource.getData();
@@ -59,7 +70,7 @@ public class PlantsViewModel extends ViewModel {
 
         for (Plant plant : sourceList) {
             boolean matchesQuery = query.isEmpty() ||
-                    plant.getName().toLowerCase().contains(query) ||
+                    (plant.getName() != null && plant.getName().toLowerCase().contains(query)) ||
                     (plant.getScientificName() != null && plant.getScientificName().toLowerCase().contains(query));
             boolean matchesCategory = category.equals("全部") ||
                     (plant.getCategory() != null && plant.getCategory().equals(category));

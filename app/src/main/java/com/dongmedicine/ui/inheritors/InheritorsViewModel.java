@@ -1,6 +1,7 @@
 package com.dongmedicine.ui.inheritors;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -19,9 +20,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class InheritorsViewModel extends ViewModel {
 
     private final DongMedicineRepository repository;
-    private LiveData<Resource<List<Inheritor>>> inheritors;
+    private final MediatorLiveData<Resource<List<Inheritor>>> inheritors = new MediatorLiveData<>();
     private final MutableLiveData<List<Inheritor>> filteredInheritors = new MutableLiveData<>();
     private String selectedLevel;
+    private LiveData<Resource<List<Inheritor>>> currentSource;
 
     @Inject
     public InheritorsViewModel(DongMedicineRepository repository) {
@@ -34,7 +36,16 @@ public class InheritorsViewModel extends ViewModel {
     public LiveData<List<Inheritor>> getFilteredInheritors() { return filteredInheritors; }
 
     public void loadInheritors() {
-        inheritors = repository.getInheritors();
+        if (currentSource != null) {
+            inheritors.removeSource(currentSource);
+        }
+        currentSource = repository.getInheritors();
+        inheritors.addSource(currentSource, resource -> {
+            inheritors.setValue(resource);
+            if (resource != null && resource.isSuccess()) {
+                applyFilters();
+            }
+        });
     }
 
     public void setSelectedLevel(String level) {
@@ -43,7 +54,7 @@ public class InheritorsViewModel extends ViewModel {
     }
 
     public void applyFilters() {
-        Resource<List<Inheritor>> resource = inheritors != null ? inheritors.getValue() : null;
+        Resource<List<Inheritor>> resource = inheritors.getValue();
         if (resource == null || resource.getData() == null) return;
 
         List<Inheritor> sourceList = resource.getData();

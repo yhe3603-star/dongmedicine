@@ -1,6 +1,7 @@
 package com.dongmedicine.ui.knowledge;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -19,9 +20,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class KnowledgeViewModel extends ViewModel {
 
     private final DongMedicineRepository repository;
-    private LiveData<Resource<List<KnowledgeItem>>> knowledgeList;
+    private final MediatorLiveData<Resource<List<KnowledgeItem>>> knowledgeList = new MediatorLiveData<>();
     private final MutableLiveData<List<KnowledgeItem>> filteredKnowledge = new MutableLiveData<>();
     private String selectedCategory;
+    private LiveData<Resource<List<KnowledgeItem>>> currentSource;
 
     @Inject
     public KnowledgeViewModel(DongMedicineRepository repository) {
@@ -34,7 +36,16 @@ public class KnowledgeViewModel extends ViewModel {
     public LiveData<List<KnowledgeItem>> getFilteredKnowledge() { return filteredKnowledge; }
 
     public void loadKnowledge() {
-        knowledgeList = repository.getKnowledgeList();
+        if (currentSource != null) {
+            knowledgeList.removeSource(currentSource);
+        }
+        currentSource = repository.getKnowledgeList();
+        knowledgeList.addSource(currentSource, resource -> {
+            knowledgeList.setValue(resource);
+            if (resource != null && resource.isSuccess()) {
+                applyFilters();
+            }
+        });
     }
 
     public void setSelectedCategory(String category) {
@@ -43,7 +54,7 @@ public class KnowledgeViewModel extends ViewModel {
     }
 
     public void applyFilters() {
-        Resource<List<KnowledgeItem>> resource = knowledgeList != null ? knowledgeList.getValue() : null;
+        Resource<List<KnowledgeItem>> resource = knowledgeList.getValue();
         if (resource == null || resource.getData() == null) return;
 
         List<KnowledgeItem> sourceList = resource.getData();
