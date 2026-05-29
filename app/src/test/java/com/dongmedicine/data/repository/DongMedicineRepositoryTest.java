@@ -38,6 +38,8 @@ public class DongMedicineRepositoryTest {
     @Mock private InheritorDao inheritorDao;
     @Mock private KnowledgeDao knowledgeDao;
     @Mock private Call<ApiService.ApiResponse<List<Plant>>> plantsCall;
+    @Mock private Call<ApiService.ApiResponse<List<Inheritor>>> inheritorsCall;
+    @Mock private Call<ApiService.ApiResponse<List<KnowledgeItem>>> knowledgeCall;
 
     private DongMedicineRepository repository;
 
@@ -100,9 +102,72 @@ public class DongMedicineRepositoryTest {
         assertEquals(Resource.Status.ERROR, result.getStatus());
     }
 
+    @Test
+    public void getInheritors_success_emitsSuccessResource() throws InterruptedException {
+        List<Inheritor> inheritors = Arrays.asList(createInheritor(1, "张三"), createInheritor(2, "李四"));
+        ApiService.ApiResponse<List<Inheritor>> apiResponse = new ApiService.ApiResponse<>();
+        apiResponse.setCode(200);
+        apiResponse.setData(inheritors);
+
+        when(apiService.getInheritors()).thenReturn(inheritorsCall);
+        doAnswer(invocation -> {
+            Callback<ApiService.ApiResponse<List<Inheritor>>> callback = invocation.getArgument(0);
+            callback.onResponse(inheritorsCall, Response.success(apiResponse));
+            return null;
+        }).when(inheritorsCall).enqueue(any());
+
+        Resource<List<Inheritor>> result = getValue(repository.getInheritors());
+        assertNotNull(result);
+        assertEquals(Resource.Status.SUCCESS, result.getStatus());
+        assertEquals(2, result.getData().size());
+    }
+
+    @Test
+    public void getKnowledgeList_success_emitsSuccessResource() throws InterruptedException {
+        List<KnowledgeItem> items = Arrays.asList(createKnowledgeItem(1, "侗医基础"), createKnowledgeItem(2, "草药学"));
+        ApiService.ApiResponse<List<KnowledgeItem>> apiResponse = new ApiService.ApiResponse<>();
+        apiResponse.setCode(200);
+        apiResponse.setData(items);
+
+        when(apiService.getKnowledgeList()).thenReturn(knowledgeCall);
+        doAnswer(invocation -> {
+            Callback<ApiService.ApiResponse<List<KnowledgeItem>>> callback = invocation.getArgument(0);
+            callback.onResponse(knowledgeCall, Response.success(apiResponse));
+            return null;
+        }).when(knowledgeCall).enqueue(any());
+
+        Resource<List<KnowledgeItem>> result = getValue(repository.getKnowledgeList());
+        assertNotNull(result);
+        assertEquals(Resource.Status.SUCCESS, result.getStatus());
+        assertEquals(2, result.getData().size());
+    }
+
+    private Inheritor createInheritor(int id, String name) {
+        Inheritor inheritor = new Inheritor();
+        inheritor.setId(id);
+        inheritor.setName(name);
+        return inheritor;
+    }
+
+    private KnowledgeItem createKnowledgeItem(int id, String title) {
+        KnowledgeItem item = new KnowledgeItem();
+        item.setId(id);
+        item.setTitle(title);
+        return item;
+    }
+
+    @SuppressWarnings("unchecked")
     private <T> T getValue(androidx.lifecycle.LiveData<T> liveData) throws InterruptedException {
-        Thread.sleep(100);
-        return liveData.getValue();
+        final Object[] holder = new Object[1];
+        final java.util.concurrent.CountDownLatch latch = new java.util.concurrent.CountDownLatch(1);
+        androidx.lifecycle.Observer<T> observer = value -> {
+            holder[0] = value;
+            latch.countDown();
+        };
+        liveData.observeForever(observer);
+        latch.await(2, java.util.concurrent.TimeUnit.SECONDS);
+        liveData.removeObserver(observer);
+        return (T) holder[0];
     }
 
     private Plant createPlant(int id, String name) {
