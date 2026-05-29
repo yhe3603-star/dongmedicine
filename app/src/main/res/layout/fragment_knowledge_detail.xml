@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_back"
-            app:title="知识详情"
+            app:title="@string/title_knowledge_detail"
             app:titleTextColor="@color/white" />
 
     </com.google.android.material.appbar.AppBarLayout>
