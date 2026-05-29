@@ -9,7 +9,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public interface ApiService {
 
@@ -19,8 +18,6 @@ public interface ApiService {
     @GET("api/plants/{id}")
     Call<ApiResponse<Plant>> getPlantById(@Path("id") int id);
 
-    @GET("api/plants/list")
-    Call<ApiResponse<List<Plant>>> getPlantsByCategory(@Query("category") String category);
 
     @GET("api/inheritors/list")
     Call<ApiResponse<List<Inheritor>>> getInheritors();
@@ -34,8 +31,6 @@ public interface ApiService {
     @GET("api/knowledge/{id}")
     Call<ApiResponse<KnowledgeItem>> getKnowledgeById(@Path("id") int id);
 
-    @GET("api/knowledge/list")
-    Call<ApiResponse<List<KnowledgeItem>>> getKnowledgeByCategory(@Query("category") String category);
 
     class ApiResponse<T> {
         private int code;
