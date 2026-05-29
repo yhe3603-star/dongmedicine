@@ -17,7 +17,13 @@ import java.util.Objects;
 
 public class QaAdapter extends ListAdapter<QaViewModel.QaItem, QaAdapter.QaViewHolder> {
 
-    public QaAdapter() {
+    private final OnItemClickListener listener;
+
+    public interface OnItemClickListener {
+        void onItemClick(QaViewModel.QaItem item);
+    }
+
+    public QaAdapter(OnItemClickListener listener) {
         super(new DiffUtil.ItemCallback<QaViewModel.QaItem>() {
             @Override
             public boolean areItemsTheSame(@NonNull QaViewModel.QaItem oldItem, @NonNull QaViewModel.QaItem newItem) {
@@ -31,6 +37,7 @@ public class QaAdapter extends ListAdapter<QaViewModel.QaItem, QaAdapter.QaViewH
                         && Objects.equals(oldItem.getCategory(), newItem.getCategory());
             }
         });
+        this.listener = listener;
     }
 
     @NonNull
@@ -47,7 +54,7 @@ public class QaAdapter extends ListAdapter<QaViewModel.QaItem, QaAdapter.QaViewH
         holder.bind(item);
     }
 
-    static class QaViewHolder extends RecyclerView.ViewHolder {
+    class QaViewHolder extends RecyclerView.ViewHolder {
         private TextView questionText;
         private TextView answerText;
         private TextView categoryText;
@@ -63,6 +70,12 @@ public class QaAdapter extends ListAdapter<QaViewModel.QaItem, QaAdapter.QaViewH
             questionText.setText(item.getQuestion());
             answerText.setText(item.getAnswer());
             categoryText.setText(item.getCategory());
+
+            itemView.setOnClickListener(v -> {
+                if (listener != null) {
+                    listener.onItemClick(item);
+                }
+            });
         }
     }
 }
