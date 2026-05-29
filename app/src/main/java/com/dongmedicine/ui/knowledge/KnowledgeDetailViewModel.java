@@ -1,6 +1,7 @@
 package com.dongmedicine.ui.knowledge;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.dongmedicine.data.model.KnowledgeItem;
@@ -15,7 +16,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class KnowledgeDetailViewModel extends ViewModel {
 
     private final DongMedicineRepository repository;
-    private LiveData<Resource<KnowledgeItem>> knowledgeItem;
+    private final MutableLiveData<Resource<KnowledgeItem>> knowledgeItem = new MutableLiveData<>();
 
     @Inject
     public KnowledgeDetailViewModel(DongMedicineRepository repository) {
@@ -25,6 +26,8 @@ public class KnowledgeDetailViewModel extends ViewModel {
     public LiveData<Resource<KnowledgeItem>> getKnowledgeItem() { return knowledgeItem; }
 
     public void loadKnowledge(int knowledgeId) {
-        knowledgeItem = repository.getKnowledgeById(knowledgeId);
+        repository.getKnowledgeById(knowledgeId).observeForever(resource -> {
+            knowledgeItem.setValue(resource);
+        });
     }
 }

@@ -1,6 +1,7 @@
 package com.dongmedicine.ui.plants;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.dongmedicine.data.model.Plant;
@@ -15,7 +16,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class PlantDetailViewModel extends ViewModel {
 
     private final DongMedicineRepository repository;
-    private LiveData<Resource<Plant>> plant;
+    private final MutableLiveData<Resource<Plant>> plant = new MutableLiveData<>();
 
     @Inject
     public PlantDetailViewModel(DongMedicineRepository repository) {
@@ -25,6 +26,8 @@ public class PlantDetailViewModel extends ViewModel {
     public LiveData<Resource<Plant>> getPlant() { return plant; }
 
     public void loadPlant(int plantId) {
-        plant = repository.getPlantById(plantId);
+        repository.getPlantById(plantId).observeForever(resource -> {
+            plant.setValue(resource);
+        });
     }
 }

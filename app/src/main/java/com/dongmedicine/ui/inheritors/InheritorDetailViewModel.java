@@ -1,6 +1,7 @@
 package com.dongmedicine.ui.inheritors;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.dongmedicine.data.model.Inheritor;
@@ -15,7 +16,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class InheritorDetailViewModel extends ViewModel {
 
     private final DongMedicineRepository repository;
-    private LiveData<Resource<Inheritor>> inheritor;
+    private final MutableLiveData<Resource<Inheritor>> inheritor = new MutableLiveData<>();
 
     @Inject
     public InheritorDetailViewModel(DongMedicineRepository repository) {
@@ -25,6 +26,8 @@ public class InheritorDetailViewModel extends ViewModel {
     public LiveData<Resource<Inheritor>> getInheritor() { return inheritor; }
 
     public void loadInheritor(int inheritorId) {
-        inheritor = repository.getInheritorById(inheritorId);
+        repository.getInheritorById(inheritorId).observeForever(resource -> {
+            inheritor.setValue(resource);
+        });
     }
 }
