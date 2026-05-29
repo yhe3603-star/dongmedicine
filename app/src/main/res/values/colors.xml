@@ -27,4 +27,8 @@
 
     <!-- Category tag -->
     <color name="category_tag_bg">#E8F5E9</color>
+
+    <!-- Surface and background -->
+    <color name="background_primary">#FFFFFF</color>
+    <color name="background_secondary">#F5F5F5</color>
 </resources>

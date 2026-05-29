@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base -->
+    <color name="black">#FFFFFFFF</color>
+    <color name="white">#FF000000</color>
+
+    <!-- Theme colors (dark mode) -->
+    <color name="primary">#81C784</color>
+    <color name="primary_dark">#1B5E20</color>
+    <color name="primary_light">#A5D6A7</color>
+    <color name="accent">#FFB74D</color>
+
+    <!-- Surface and background -->
+    <color name="background_primary">#121212</color>
+    <color name="background_secondary">#1E1E1E</color>
+    <color name="card_background">#1E1E1E</color>
+
+    <!-- Text -->
+    <color name="text_primary">#E0E0E0</color>
+    <color name="text_secondary">#AAAAAA</color>
+    <color name="divider">#424242</color>
+
+    <!-- Stats card backgrounds -->
+    <color name="stats_blue_bg">#1A237E</color>
+    <color name="stats_blue_text">#90CAF9</color>
+    <color name="stats_orange_bg">#3E2723</color>
+    <color name="stats_orange_text">#FFB74D</color>
+    <color name="stats_purple_bg">#4A148C</color>
+    <color name="stats_purple_text">#CE93D8</color>
+
+    <!-- Quick entry buttons -->
+    <color name="button_blue">#90CAF9</color>
+    <color name="button_orange">#FFB74D</color>
+    <color name="button_purple">#CE93D8</color>
+
+    <!-- Category tag -->
+    <color name="category_tag_bg">#1B5E20</color>
+</resources>

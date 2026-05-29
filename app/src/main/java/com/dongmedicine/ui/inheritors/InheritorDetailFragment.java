@@ -88,8 +88,8 @@ public class InheritorDetailFragment extends Fragment {
 
         Glide.with(this)
                 .load(inheritor.getImageUrl())
-                .placeholder(R.drawable.ic_launcher_foreground)
-                .error(R.drawable.ic_launcher_foreground)
+                .placeholder(R.drawable.ic_placeholder)
+                .error(R.drawable.ic_placeholder)
                 .into(binding.inheritorDetailImage);
     }
 

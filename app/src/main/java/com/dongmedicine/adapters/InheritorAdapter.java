@@ -79,8 +79,8 @@ public class InheritorAdapter extends ListAdapter<Inheritor, InheritorAdapter.In
             if (inheritor.getImageUrl() != null && !inheritor.getImageUrl().isEmpty()) {
                 Glide.with(itemView.getContext())
                         .load(inheritor.getImageUrl())
-                        .placeholder(R.drawable.ic_launcher_foreground)
-                        .error(R.drawable.ic_launcher_foreground)
+                        .placeholder(R.drawable.ic_placeholder)
+                        .error(R.drawable.ic_placeholder)
                         .circleCrop()
                         .into(inheritorImage);
             }

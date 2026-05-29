@@ -87,8 +87,8 @@ public class PlantAdapter extends ListAdapter<Plant, PlantAdapter.PlantViewHolde
             if (plant.getImageUrl() != null && !plant.getImageUrl().isEmpty()) {
                 Glide.with(itemView.getContext())
                         .load(plant.getImageUrl())
-                        .placeholder(R.drawable.ic_launcher_foreground)
-                        .error(R.drawable.ic_launcher_foreground)
+                        .placeholder(R.drawable.ic_placeholder)
+                        .error(R.drawable.ic_placeholder)
                         .into(plantImage);
             }
 
