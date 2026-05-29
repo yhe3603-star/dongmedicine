@@ -54,7 +54,7 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging)
     implementation(libs.glide)
-    implementation(libs.mpandroidchart)
+
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     implementation(libs.navigation.fragment)
@@ -62,7 +62,7 @@ dependencies {
     implementation(libs.lifecycle.viewmodel)
     implementation(libs.lifecycle.livedata)
     implementation(libs.recyclerview)
-    implementation(libs.viewpager2)
+
     implementation(libs.gson)
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.fragment)
