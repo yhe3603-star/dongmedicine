@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.dongmedicine.R;
 import com.dongmedicine.data.model.KnowledgeItem;
 import com.dongmedicine.data.repository.Resource;
 import com.dongmedicine.databinding.FragmentKnowledgeDetailBinding;
