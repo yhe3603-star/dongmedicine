@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.dongmedicine.R;
 import com.dongmedicine.adapters.PlantAdapter;
 import com.dongmedicine.adapters.SpaceItemDecoration;
+import com.dongmedicine.ui.plants.PlantDetailFragmentArgs;
 import com.dongmedicine.utils.AnimationUtils;
 import com.dongmedicine.data.model.Plant;
 import com.dongmedicine.databinding.FragmentPlantsBinding;
@@ -177,8 +178,11 @@ public class PlantsFragment extends Fragment implements PlantAdapter.OnItemClick
 
     @Override
     public void onItemClick(Plant plant) {
+        PlantDetailFragmentArgs args = new PlantDetailFragmentArgs.Builder()
+                .setPlantId(plant.getId())
+                .build();
         Navigation.findNavController(requireView())
-                .navigate(PlantsFragmentDirections.actionPlantsFragmentToPlantDetailFragment(plant.getId()));
+                .navigate(PlantsFragmentDirections.actionPlantsFragmentToPlantDetailFragment(), args);
     }
 
     @Override

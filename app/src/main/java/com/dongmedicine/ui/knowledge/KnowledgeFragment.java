@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.dongmedicine.R;
 import com.dongmedicine.adapters.KnowledgeAdapter;
 import com.dongmedicine.adapters.SpaceItemDecoration;
+import com.dongmedicine.ui.knowledge.KnowledgeDetailFragmentArgs;
 import com.dongmedicine.utils.AnimationUtils;
 import com.dongmedicine.data.model.KnowledgeItem;
 import com.dongmedicine.databinding.FragmentKnowledgeBinding;
@@ -159,8 +160,11 @@ public class KnowledgeFragment extends Fragment implements KnowledgeAdapter.OnIt
 
     @Override
     public void onItemClick(KnowledgeItem item) {
+        KnowledgeDetailFragmentArgs args = new KnowledgeDetailFragmentArgs.Builder()
+                .setKnowledgeId(item.getId())
+                .build();
         Navigation.findNavController(requireView())
-                .navigate(KnowledgeFragmentDirections.actionKnowledgeFragmentToKnowledgeDetailFragment(item.getId()));
+                .navigate(KnowledgeFragmentDirections.actionKnowledgeFragmentToKnowledgeDetailFragment(), args);
     }
 
     @Override

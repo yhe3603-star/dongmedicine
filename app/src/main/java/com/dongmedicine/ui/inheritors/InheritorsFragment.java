@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.dongmedicine.R;
 import com.dongmedicine.adapters.InheritorAdapter;
 import com.dongmedicine.adapters.SpaceItemDecoration;
+import com.dongmedicine.ui.inheritors.InheritorDetailFragmentArgs;
 import com.dongmedicine.utils.AnimationUtils;
 import com.dongmedicine.data.model.Inheritor;
 import com.dongmedicine.databinding.FragmentInheritorsBinding;
@@ -159,8 +160,11 @@ public class InheritorsFragment extends Fragment implements InheritorAdapter.OnI
 
     @Override
     public void onItemClick(Inheritor inheritor) {
+        InheritorDetailFragmentArgs args = new InheritorDetailFragmentArgs.Builder()
+                .setInheritorId(inheritor.getId())
+                .build();
         Navigation.findNavController(requireView())
-                .navigate(InheritorsFragmentDirections.actionInheritorsFragmentToInheritorDetailFragment(inheritor.getId()));
+                .navigate(InheritorsFragmentDirections.actionInheritorsFragmentToInheritorDetailFragment(), args);
     }
 
     @Override
