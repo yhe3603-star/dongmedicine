@@ -28,7 +28,7 @@ public class DatabaseModule {
                 context,
                 DongMedicineDatabase.class,
                 "dongmedicine_db"
-        ).build();
+        ).fallbackToDestructiveMigration().build();
     }
 
     @Provides
