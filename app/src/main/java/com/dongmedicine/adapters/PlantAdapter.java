@@ -1,10 +1,7 @@
 package com.dongmedicine.adapters;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -14,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.dongmedicine.R;
 import com.dongmedicine.data.model.Plant;
+import com.dongmedicine.databinding.ItemPlantBinding;
 
 import java.util.Objects;
 
@@ -47,9 +45,9 @@ public class PlantAdapter extends ListAdapter<Plant, PlantAdapter.PlantViewHolde
     @NonNull
     @Override
     public PlantViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_plant, parent, false);
-        return new PlantViewHolder(view);
+        ItemPlantBinding binding = ItemPlantBinding.inflate(
+                LayoutInflater.from(parent.getContext()), parent, false);
+        return new PlantViewHolder(binding);
     }
 
     @Override
@@ -59,29 +57,23 @@ public class PlantAdapter extends ListAdapter<Plant, PlantAdapter.PlantViewHolde
     }
 
     class PlantViewHolder extends RecyclerView.ViewHolder {
-        private TextView nameText;
-        private TextView scientificNameText;
-        private TextView descriptionText;
-        private ImageView plantImage;
+        private final ItemPlantBinding binding;
 
-        PlantViewHolder(@NonNull View itemView) {
-            super(itemView);
-            nameText = itemView.findViewById(R.id.plant_name);
-            scientificNameText = itemView.findViewById(R.id.plant_scientific_name);
-            descriptionText = itemView.findViewById(R.id.plant_description);
-            plantImage = itemView.findViewById(R.id.plant_image);
+        PlantViewHolder(@NonNull ItemPlantBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
 
         void bind(Plant plant) {
-            nameText.setText(plant.getName());
-            scientificNameText.setText(plant.getScientificName());
-            
+            binding.plantName.setText(plant.getName());
+            binding.plantScientificName.setText(plant.getScientificName());
+
             if (plant.getDescription() != null && !plant.getDescription().isEmpty()) {
-                descriptionText.setText(plant.getDescription());
+                binding.plantDescription.setText(plant.getDescription());
             } else if (plant.getEffects() != null && !plant.getEffects().isEmpty()) {
-                descriptionText.setText(plant.getEffects());
+                binding.plantDescription.setText(plant.getEffects());
             } else {
-                descriptionText.setText(itemView.getContext().getString(R.string.no_description));
+                binding.plantDescription.setText(itemView.getContext().getString(R.string.no_description));
             }
 
             if (plant.getImageUrl() != null && !plant.getImageUrl().isEmpty()) {
@@ -89,7 +81,9 @@ public class PlantAdapter extends ListAdapter<Plant, PlantAdapter.PlantViewHolde
                         .load(plant.getImageUrl())
                         .placeholder(R.drawable.ic_placeholder)
                         .error(R.drawable.ic_placeholder)
-                        .into(plantImage);
+                        .into(binding.plantImage);
+            } else {
+                binding.plantImage.setImageResource(R.drawable.ic_placeholder);
             }
 
             itemView.setOnClickListener(v -> {

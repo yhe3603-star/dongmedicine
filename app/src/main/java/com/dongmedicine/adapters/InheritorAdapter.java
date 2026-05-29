@@ -1,10 +1,7 @@
 package com.dongmedicine.adapters;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -14,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.dongmedicine.R;
 import com.dongmedicine.data.model.Inheritor;
+import com.dongmedicine.databinding.ItemInheritorBinding;
 
 import java.util.Objects;
 
@@ -46,9 +44,9 @@ public class InheritorAdapter extends ListAdapter<Inheritor, InheritorAdapter.In
     @NonNull
     @Override
     public InheritorViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_inheritor, parent, false);
-        return new InheritorViewHolder(view);
+        ItemInheritorBinding binding = ItemInheritorBinding.inflate(
+                LayoutInflater.from(parent.getContext()), parent, false);
+        return new InheritorViewHolder(binding);
     }
 
     @Override
@@ -58,23 +56,17 @@ public class InheritorAdapter extends ListAdapter<Inheritor, InheritorAdapter.In
     }
 
     class InheritorViewHolder extends RecyclerView.ViewHolder {
-        private TextView nameText;
-        private TextView titleText;
-        private TextView specializationText;
-        private ImageView inheritorImage;
+        private final ItemInheritorBinding binding;
 
-        InheritorViewHolder(@NonNull View itemView) {
-            super(itemView);
-            nameText = itemView.findViewById(R.id.inheritor_name);
-            titleText = itemView.findViewById(R.id.inheritor_title);
-            specializationText = itemView.findViewById(R.id.inheritor_specialization);
-            inheritorImage = itemView.findViewById(R.id.inheritor_image);
+        InheritorViewHolder(@NonNull ItemInheritorBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
 
         void bind(Inheritor inheritor) {
-            nameText.setText(inheritor.getName());
-            titleText.setText(inheritor.getTitle());
-            specializationText.setText(inheritor.getSpecialization());
+            binding.inheritorName.setText(inheritor.getName());
+            binding.inheritorTitle.setText(inheritor.getTitle());
+            binding.inheritorSpecialization.setText(inheritor.getSpecialization());
 
             if (inheritor.getImageUrl() != null && !inheritor.getImageUrl().isEmpty()) {
                 Glide.with(itemView.getContext())
@@ -82,7 +74,9 @@ public class InheritorAdapter extends ListAdapter<Inheritor, InheritorAdapter.In
                         .placeholder(R.drawable.ic_placeholder)
                         .error(R.drawable.ic_placeholder)
                         .circleCrop()
-                        .into(inheritorImage);
+                        .into(binding.inheritorImage);
+            } else {
+                binding.inheritorImage.setImageResource(R.drawable.ic_placeholder);
             }
 
             itemView.setOnClickListener(v -> {
